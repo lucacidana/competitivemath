@@ -11,7 +11,7 @@ const navigateRight = document.querySelector('#navigateRight')
 // Populate the problem list
 if (window.location.href.includes('?')) {
   let URL =
-    'http://localhost:3000/problemList' +
+    '/problemList' +
     window.location.href.slice(window.location.href.indexOf('?')) // For sec purposes, I should use URL params and concat that, not just paste the queries
   let urlParams = new URLSearchParams(window.location.search)
   let skipValue = urlParams.get('skip')
@@ -25,7 +25,7 @@ if (window.location.href.includes('?')) {
         data.forEach((value) => {
           document
             .querySelector(`#link${i}`)
-            .setAttribute('href', `http://localhost:3000/problems/${value._id}`)
+            .setAttribute('href', `/problems/${value._id}`)
           document.querySelector(`#link${i}`).textContent = value.title
 
           document.querySelector(`#category${i}`).textContent = value.category
@@ -83,7 +83,7 @@ if (window.location.href.includes('?')) {
 searchForm.addEventListener('submit', async (e) => {
   e.preventDefault()
 
-  let URL = 'http://localhost:3000/problems?'
+  let URL = '/problems?'
   const formData = new FormData(searchForm)
   for (var pair of formData.entries()) {
     URL = URL + pair[0] + '=' + pair[1] + '&'

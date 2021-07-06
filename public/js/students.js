@@ -79,7 +79,7 @@ navigateLeft.addEventListener('click', async (e) => {
 
 if (window.location.href.includes('?name=')) {
   let URL =
-    'http://localhost:3000/users/me/studentList' +
+    '/users/me/studentList' +
     window.location.href.slice(window.location.href.indexOf('?'))
   let urlParams = new URLSearchParams(window.location.search)
   let skipValue = urlParams.get('skip')
