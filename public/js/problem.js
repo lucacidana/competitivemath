@@ -69,7 +69,7 @@ fetch('/problemList/' + id).then((response) => {
             document.querySelector(`#img${i}`).src =
               'data:image/jpeg;base64,' + buffer
 
-            document.querySelector(`#img${i}`).style.display = 'block'
+            document.querySelector(`#img${i}`).style.display = 'flex'
             i = ++i
           })
           document.querySelector('#solutionImagesDiv').style.display = 'flex'
@@ -124,7 +124,7 @@ document
   })
 
 document.querySelector('#img1').addEventListener('click', async (e) => {
-  // code for enlarging images
+  // code for enlarging images -TODO-
   e.preventDefault()
   document.querySelector('#enlargedPhoto').style.display = 'flex'
   document.querySelector('#img11').src = document.querySelector('#img1').src
