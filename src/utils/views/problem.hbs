@@ -1,0 +1,115 @@
+<html lang='en'>
+
+  <head>
+
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Problem</title>
+    <link rel='stylesheet' href='/css/styles.css' />
+    <link rel='icon' href='/img/icon.png' />
+
+  </head>
+
+  <body class="mb-10">
+      {{>header this}}
+      <div class="flex flex-col ml-40 mt-12 space-y-6"> <!--Content div-->
+
+        <div class="self-start bg-green-50 shadow-inner rounded-lg p-2"> <!--Problem title-->
+        <h1 class="font-extralight text-3xl text-green-900" id="problemTitle"></h1>
+        </div>
+
+        <div class="hidden self-start bg-green-50 shadow-inner rounded-lg p-4 space-y-6" id="problemDiv"> <!--Problem div-->
+            <div>
+                <textarea class="p-4 font-light border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600" readonly id="problemDesc" cols="100" rows="10"></textarea>
+            </div>
+
+            <div>
+                <span class="p-0.5 border border-transparent text-white font-light rounded" id="problemCategory"></span>
+                <span class="p-0.5 border border-transparent text-white font-light rounded" id="problemDifficulty"></span>
+                {{#if loggedIn}}<span class="float-right"><button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                id="problemButton"></button></span>{{/if}}
+            </div>
+        </div>
+
+        <div class="hidden self-start bg-green-50 shadow-inner rounded-lg p-4 space-y-4" id="solutionDiv"> <!--Solution div-->
+
+            <div>
+                <h1 class="font-extralight text-3xl text-green-900">My solution</h1> <!--Solution header-->
+            </div>
+            <div class=" p-2 bg-white rounded-lg shadow"> <!--Description div-->
+                <textarea readonly class="font-light border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600" id="solutionDescription" cols="100" rows="10"></textarea>
+            </div>
+            <div class="flex flex-row overflow-x-auto h-96 hidden" id="solutionImagesDiv"> <!--Solution images-->
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img1">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img2">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img3">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img4">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img5">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img6">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img7">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img8">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img9">
+                <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img10">
+            </div>
+            <div>
+                <p class="font-light text-lg text-green-800" id="solutionGrade"></p>
+                <p class="font-light text-lg text-green-800" id="solutionComment"></p>
+                <a href="" id="gradedBy"><p class="font-light text-lg text-green-800"></p></a>
+            </div>
+        </div>
+        
+      </div>
+
+      <div class="hidden absolute top-0 w-full h-full bg-gray-100 bg-opacity-50" id="modalBackground"></div> <!--Modal background-->
+      
+        <div class="hidden flex absolute inset-y-1/3 inset-x-1/3" id="enlargedPhoto">
+            <img class="hidden max-w-full max-y-full object-contain" src="" alt="" id="img11">
+        </div>
+
+      <div class="hidden absolute inset-y-1/3 inset-x-1/3 flex flex-col" id="addSolutionForm"> <!--Add solution modal form-->
+        <div class="self-start bg-green-50 rounded-lg ring-2 ring-green-200 shadow-inner p-2 space-y-2">
+
+            <div>
+                <h1 class="font-extralight text-3xl text-green-900">Add Solution</h1>
+            </div>
+
+            <div>
+                <form action="" method="POST" id="addSolutionAction" enctype="multipart/form-data">
+                    <textarea class="border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600" cols="100" rows="10" name="solution" required></textarea>
+                    Add images: <input type="file" name="files" accept="image/*" multiple>
+                    <button 
+                        class="mt-2 float-right text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                        type="submit"
+                    >Add solution</button>
+                </form>
+            </div>
+
+        </div>
+      </div>
+
+      <div class="hidden absolute inset-y-1/3 inset-x-1/3 flex flex-col" id="modifySolutionForm"> <!--Modify solution modal form-->
+        <div class="self-start bg-green-50 rounded-lg ring-2 ring-green-200 shadow-inner p-2 space-y-2">
+
+            <div>
+                <h1 class="font-extralight text-3xl text-green-900">Modify Solution</h1>
+            </div>
+
+            <div>
+                <form action="" method="POST" id="modifySolutionAction" enctype="multipart/form-data">
+                    <textarea class="border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600" cols="100" rows="10" name="solution" required></textarea>
+                    Add images: <input type="file" name="files" accept="image/*" multiple>
+                    <button 
+                        class="mt-2 float-right text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                        type="submit"
+                    >Modify solution</button>
+                </form>
+            </div>
+
+        </div>
+      </div>  
+    {{>footer}}
+    <script src='/js/problem.js'></script>
+  </body>
+
+</html>

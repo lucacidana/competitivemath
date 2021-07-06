@@ -1,0 +1,56 @@
+<header>
+  <div
+    class='fixed top-0 left-0 w-full flex space-x-9 bg-green-300 pb-2 shadow-inner ring ring-green-400 ring-opacity-25 ring-inset text-center'
+  >
+    <div>
+      <h1
+        class='ml-12 mt-1.5 text-lg font-semibold tracking-wider hover:text-white'
+        id='profileHeading'
+      ><img class='float-left mr-1 mt-0.5' src='/img/account.png' alt='' /><a
+          href='/users/me'
+        >Profile</a></h1>
+    </div>
+    <div>
+      <h1
+        class='mt-1.5 text-lg font-semibold tracking-wider hover:text-white'
+        id='problemsHeading'
+      ><img class='float-left mr-1 mt-0.5' src='/img/problems.png' alt='' /><a
+          href='/problems'
+        >Problems</a></h1>
+    </div>
+    <div>
+      <h1
+        class='mt-1.5 text-lg font-semibold tracking-wider hover:text-white'
+        id='solutionsHeading'
+      ><img class='float-left mr-1 mt-0.5' src='/img/solutions.png' alt='' /><a
+          href='/users/me/solutions'
+        >My solutions</a></h1>
+    </div>
+    {{#if Professor}}
+      <div>
+        <h1
+          class='mt-1.5 text-lg font-semibold tracking-wider hover:text-white'
+          id='studentHeader'
+        ><img
+            class='float-left mr-1 mt-0.5'
+            src='/img/My Students.png'
+            alt=''
+          /><a href='/users/me/students'>My Students</a>
+        </h1>
+      </div>
+    {{/if}}
+    <div class='flex-grow'>
+      <h1
+        class='mt-1.5 font-mono text-right text-green-900 font-semibold text-xl'
+      >Competitive Math</h1>
+    </div>
+    <div class='self-end'>
+      <button id='logoutButton' type='submit'><img
+          src='/img/logout.png'
+          width='25'
+          alt=''
+        /></button>
+    </div>
+  </div>
+  <script src='/js/header.js'></script>
+</header>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+  <head>
+
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>My Students</title>
+    <link rel='stylesheet' href='/css/styles.css' />
+    <link rel='icon' href='/img/icon.png' />
+
+  </head>
+
+  <body class="mb-5">
+      {{>header this}}
+
+        <div class="flex flex-col ml-40 mt-12 space-y-6"> <!--Student search & list container-->
+
+            <div class="p-5 self-start bg-green-50 shadow-inner rounded-lg"> <!--Search student-->
+                <h1 class="mb-5 font-extralight text-3xl text-green-900">Search students</h1>
+                <input class="font-light text-lg text-green-900 border border-transparent rounded focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
+                    type="text" id="searchStudent" placeholder="Write the student's name">
+                <div> <!--Buttons-->
+                    <button class="inline block mt-2 px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                    id="searchStudentButton">Search</button>
+                    <button class="inline block mt-2 px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                    id="addStudentButton">Add student</button>
+                </div>
+            </div>
+
+            <div class="hidden p-5 self-start bg-green-50 shadow-inner rounded-lg" id="studentDiv">  <!--Student rows-->
+
+                <div class="mb-6">  <!--Student heading-->
+                    <h1 class="inline font-extralight text-3xl text-green-900" id="studentHeading">
+                    </h1><img class="inline ml-2" id="studentImage" src="/img/My Students.png" alt="">
+                </div>
+
+                <!--Begin student divs-->
+                <div class="hidden space-x-5 flex mb-6" id="studentRow1"> <!--Student row 1-->
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student1">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link1"></a>
+                        <a href="" class="inline float-right" id="delete1"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email1"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student2">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link2"></a>
+                        <a href="" class="inline float-right" id="delete2"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email2"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student3">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link3"></a>
+                        <a href="" class="inline float-right" id="delete3"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email3"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student4">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link4"></a>
+                        <a href="" class="inline float-right" id="delete4"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email4"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student5">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link5"></a>
+                        <a href="" class="inline float-right" id="delete5"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email5"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student6">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link6"></a>
+                        <a href="" class="inline float-right" id="delete6"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email6"></p>
+                    </div>
+
+                </div>
+
+                <div class="hidden space-x-5 flex mb-6" id="studentRow2"> <!--Student row 2-->
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student7">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link7"></a>
+                        <a href="" class="inline float-right" id="delete7"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email7"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student8">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link8"></a>
+                        <a href="" class="inline float-right" id="delete8"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email8"></p>
+                    </div>
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student9">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link9"></a>
+                        <a href="" class="inline float-right" id="delete9"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email9"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student10">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link10"></a>
+                        <a href="" class="inline float-right" id="delete10"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email10"></p>
+                    </div>
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student11">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link11"></a>
+                        <a href="" class="inline float-right" id="delete11"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email11"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student12">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link12"></a>
+                        <a href="" class="inline float-right" id="delete12"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email12"></p>
+                    </div>
+
+                </div>
+
+                <div class="hidden space-x-5 flex mb-6" id="studentRow3"> <!--Student row 3-->
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student13">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link13"></a>
+                        <a href="" class="inline float-right" id="delete13"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email13"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student14">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link14"></a>
+                        <a href="" class="inline float-right" id="delete14"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email14"></p>
+                    </div>
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student15">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link15"></a>
+                        <a href="" class="inline float-right" id="delete15"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email15"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student16">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link16"></a>
+                        <a href="" class="inline float-right" id="delete16"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email16"></p>
+                    </div>
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student17">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link17"></a>
+                        <a href="" class="inline float-right" id="delete17"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email17"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student18">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link18"></a>
+                        <a href="" class="inline float-right" id="delete18"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email18"></p>
+                    </div>
+                    
+                </div>
+
+                <div class="hidden space-x-5 flex mb-6" id="studentRow4"> <!--Student row 4-->
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student19">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link19"></a>
+                        <a href="" class="inline float-right" id="delete19"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email19"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student20">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link20"></a>
+                        <a href="" class="inline float-right" id="delete20"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email20"></p>
+                    </div>
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student21">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link21"></a>
+                        <a href="" class="inline float-right" id="delete21"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email21"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student22">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link22"></a>
+                        <a href="" class="inline float-right" id="delete22"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email22"></p>
+                    </div>
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student23">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link23"></a>
+                        <a href="" class="inline float-right" id="delete23"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email23"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student24">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link24"></a>
+                        <a href="" class="inline float-right" id="delete24"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email24"></p>
+                    </div>
+                    
+                </div>
+
+                <div class="hidden space-x-5 flex mb-6" id="studentRow5"> <!--Student row 5-->
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student25">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link25"></a>
+                        <a href="" class="inline float-right" id="delete25"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email25"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student26">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link26"></a>
+                        <a href="" class="inline float-right" id="delete26"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email26"></p>
+                    </div>
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student27">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link27"></a>
+                        <a href="" class="inline float-right" id="delete27"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email27"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student28">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link28"></a>
+                        <a href="" class="inline float-right" id="delete28"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email28"></p>
+                    </div>
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student29">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link29"></a>
+                        <a href="" class="inline float-right" id="delete29"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email29"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student30">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link30"></a>
+                        <a href="" class="inline float-right" id="delete30"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email30"></p>
+                    </div>
+                    
+                </div>
+
+                <div class="hidden space-x-5 flex mb-6" id="studentRow6"> <!--Student row 6-->
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student31">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link31"></a>
+                        <a href="" class="inline float-right" id="delete31"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email31"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student32">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link32"></a>
+                        <a href="" class="inline float-right" id="delete32"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email32"></p>
+                    </div>
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student33">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link33"></a>
+                        <a href="" class="inline float-right" id="delete33"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email33"></p>
+                    </div>
+
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student34">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link34"></a>
+                        <a href="" class="inline float-right" id="delete34"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email34"></p>
+                    </div>
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student35">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link35"></a>
+                        <a href="" class="inline float-right" id="delete35"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email35"></p>
+                    </div>  
+                    
+                    <div class="hidden p-2 bg-white rounded-lg shadow float-left" id="student36">
+                        <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link36"></a>
+                        <a href="" class="inline float-right" id="delete36"><img src="/img/delete.png" alt="" title="Delete student"></a>
+                        <p class="font-light text-md text-green-800" id="email36"></p>
+                    </div>
+                    
+                </div>
+                <!--End of student rows-->
+
+            </div>
+
+        </div> <!--End of search and student list-->
+
+        <div class="flex flex-row space-x-2 mt-8 pb-1 justify-center"> <!--Navigation buttons-->
+            <div class="">
+                <button class="hidden rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"  id="navigateLeft">
+                    <img src="/img/navigateLeft.png" alt="" width="30">
+                </button>
+            </div>
+            <div class="">
+                <button class="hidden rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"  id="navigateRight">
+                    <img src="/img/navigateRight.png" alt="" width="30">
+                </button>
+            </div>
+        </div>
+
+        <div class="{{#unless error}}hidden{{/unless}} absolute top-0 w-full h-full bg-gray-100 bg-opacity-50" id="addStudentModal"> <!--Modal box-->
+        </div>
+
+        <div class="{{#unless error}}hidden{{/unless}} absolute inset-y-1/3 inset-x-1/3 flex flex-col" id="addStudentForm">    <!--Modal form-->
+
+            <div class="self-center bg-green-50 rounded-lg p-3 ring-2 ring-green-200 shadow-inner">
+
+                <h1 class="mb-5 font-extralight text-3xl text-green-900">Add student</h1>
+                <form action="/users/me/students" id="addStudentForm" method="POST" enctype="multipart/form-data">
+                    <input class="w-80 font-light text-lg text-green-900 border border-transparent rounded focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
+                    type="email" name="email" id="addStudentEmail" placeholder="Write the student's email">
+                    <button class="inline mt-2 block px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                    type="submit">Add</button>
+                </form>
+                <button class="mt-2 block px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                id="cancelAddStudent">Cancel</button>
+                <p class="inline font-light text-red-500 text-lg" id="addStudentError">{{error}}</p>
+            </div>
+
+        </div>
+        
+    {{>footer}}
+    <script src="/js/students.js"></script>
+  </body>
+
+</html>
