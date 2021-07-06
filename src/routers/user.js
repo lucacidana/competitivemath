@@ -81,7 +81,7 @@ router.post(
   '/users/me/students',
   [upload.fields([]), auth],
   async (req, res) => {
-    // POST a stud ent
+    // POST a student
     if (req.user.isProfessor) {
       // Verificam daca cererea este facuta de un profesor
       try {
@@ -108,7 +108,7 @@ router.post(
           req.user.students.push({ studentId: user._id })
 
           await req.user.save()
-          res.send(req.user.students)
+          res.redirect('/users/me/students')
         }
       } catch (e) {
         // Internal error

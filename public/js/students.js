@@ -50,9 +50,9 @@ document
 document
   .querySelector('#addStudentForm')
   .addEventListener('submit', async (e) => {
-    e.preventDefault()
     let email = document.querySelector('#addStudentEmail').value
     if (email.length < 1) {
+      e.preventDefault()
       document.querySelector('#addStudentError').textContent =
         'Please introduce a valid email'
     }
