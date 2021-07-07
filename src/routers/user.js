@@ -6,7 +6,11 @@ const Problem = require('../models/problem')
 const { sendWelcomeEmail, sendCancelationEmail } = require('../emails/account')
 const validator = require('validator')
 const multer = require('multer')
-const upload = multer()
+const upload = multer({
+  limits: {
+    fileSize: 1000000,
+  },
+})
 const jwt = require('jsonwebtoken')
 const e = require('express')
 const resize = require('../middleware/resize')
@@ -254,7 +258,7 @@ router.post(
 
         if (req.user.isModified()) {
           await req.user.save()
-          res.redirect('/problems/' + req.params.id)
+          res.send()
         }
         res.status(404).send('No solution to be modified was found')
       } catch (e) {

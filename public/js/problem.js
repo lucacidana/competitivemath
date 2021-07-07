@@ -43,8 +43,8 @@ fetch('/problemList/' + id).then((response) => {
       if (problemSolution) {
         document.querySelector('#solutionDescription').value =
           problemSolution.solution
-        document.querySelector('#modifySolutionAction').action =
-          '/users/me/solutions/' + id
+        // document.querySelector('#modifySolutionAction').action = No need for this since we are fetching from clientside
+        //   '/users/me/solutions/' + id
 
         if (problemSolution.grading.grade) {
           document.querySelector('#solutionGrade').textContent =
@@ -129,3 +129,51 @@ document.querySelector('#img1').addEventListener('click', async (e) => {
   document.querySelector('#enlargedPhoto').style.display = 'flex'
   document.querySelector('#img11').src = document.querySelector('#img1').src
 })
+
+document
+  .querySelector('#modifySolutionAction')
+  .addEventListener('submit', async (e) => {
+    e.preventDefault()
+    let URL = '/users/me/solutions/' + id
+    fetch(URL, {
+      method: 'POST',
+      body: new FormData(document.querySelector('#modifySolutionAction')),
+    }).then((response) => {
+      if (response.status === 400) {
+        document.querySelector('#modFileError').textContent =
+          'File too large (>1mb)'
+      } else {
+        document.querySelector('#modFileError').classList.remove('text-red-500')
+        document.querySelector('#modFileError').classList.add('text-green-500')
+        document.querySelector('#modFileError').textContent =
+          'Successfuly modified solution!'
+        setTimeout(() => {
+          window.location.href = '/problems/' + id
+        }, 3000)
+      }
+    })
+  })
+
+document
+  .querySelector('#addSolutionAction')
+  .addEventListener('submit', async (e) => {
+    e.preventDefault()
+    let URL = '/problems/' + id
+    fetch(URL, {
+      method: 'POST',
+      body: new FormData(document.querySelector('#addSolutionAction')),
+    }).then((response) => {
+      if (response.status === 400) {
+        document.querySelector('#addFileError').textContent =
+          'File too large (>1mb)'
+      } else {
+        document.querySelector('#addFileError').classList.remove('text-red-500')
+        document.querySelector('#addFileError').classList.add('text-green-500')
+        document.querySelector('#addFileError').textContent =
+          'Successfuly added solution!'
+        setTimeout(() => {
+          window.location.href = '/problems/' + id
+        }, 3000)
+      }
+    })
+  })

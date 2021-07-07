@@ -7,6 +7,7 @@ const hbs = require('hbs')
 const userRouter = require('./routers/user')
 const problemRouter = require('./routers/problem')
 const cookieParser = require('cookie-parser')
+const multer = require('multer')
 
 const app = express()
 const port = process.env.PORT
@@ -15,6 +16,11 @@ app.use(express.json()) // Automatically parse JSON data into an object.
 app.use(cookieParser())
 app.use(userRouter)
 app.use(problemRouter)
+app.use(function (err, req, res, next) {
+  if (err instanceof multer.MulterError) {
+    res.status(400).send('File too large (>1mb)')
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is up on ${port}`)

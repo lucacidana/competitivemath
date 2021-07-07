@@ -6,7 +6,11 @@ const Problem = require('../models/problem')
 const jwt = require('jsonwebtoken')
 require('mongoose')
 const multer = require('multer')
-const upload = multer()
+const upload = multer({
+  limits: {
+    fileSize: 1000000,
+  },
+})
 const resize = require('../middleware/resize')
 const Categories = ['Algebra', 'Analiza', 'Geometrie']
 const Difficulties = ['Usor', 'Mediu', 'Dificil']
@@ -37,12 +41,17 @@ router.post(
   // Upload a solution
   '/problems/:id',
   [
-    upload.fields([
-      {
-        name: 'files',
-        maxCount: 10,
-      },
-    ]),
+    upload.fields(
+      [
+        {
+          name: 'files',
+          maxCount: 10,
+        },
+      ],
+      (error) => {
+        res.redirct('/users/me')
+      }
+    ),
     auth,
     resize,
   ],
@@ -67,7 +76,7 @@ router.post(
           solutionFiles: req.body.images,
         })
         await req.user.save()
-        res.redirect('/problems/' + req.params.id)
+        res.send()
       } catch (e) {
         res.status(500).send(e)
       }

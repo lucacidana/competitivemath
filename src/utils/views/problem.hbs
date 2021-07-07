@@ -77,7 +77,8 @@
             <div>
                 <form action="" method="POST" id="addSolutionAction" enctype="multipart/form-data">
                     <textarea class="border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600" cols="100" rows="10" name="solution" required></textarea>
-                    Add images: <input type="file" name="files" accept="image/*" multiple>
+                    Add images (1mb max individual size): <input type="file" name="files" accept="image/*" multiple>
+                    <p class="inline font-light text-red-500" id="addFileError"></p>
                     <button 
                         class="mt-2 float-right text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
                         type="submit"
@@ -98,7 +99,8 @@
             <div>
                 <form action="" method="POST" id="modifySolutionAction" enctype="multipart/form-data">
                     <textarea class="border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600" cols="100" rows="10" name="solution" required></textarea>
-                    Add images: <input type="file" name="files" accept="image/*" multiple>
+                    Add images (1mb max individual size): <input type="file" name="files" accept="image/*" multiple>
+                    <p class="inline font-light text-red-500" id="modFileError"></p>
                     <button 
                         class="mt-2 float-right text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
                         type="submit"
