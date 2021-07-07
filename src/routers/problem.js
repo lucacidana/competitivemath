@@ -41,17 +41,12 @@ router.post(
   // Upload a solution
   '/problems/:id',
   [
-    upload.fields(
-      [
-        {
-          name: 'files',
-          maxCount: 10,
-        },
-      ],
-      (error) => {
-        res.redirct('/users/me')
-      }
-    ),
+    upload.fields([
+      {
+        name: 'files',
+        maxCount: 10,
+      },
+    ]),
     auth,
     resize,
   ],

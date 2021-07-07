@@ -123,12 +123,11 @@ document
     }
   })
 
-document.querySelector('#img1').addEventListener('click', async (e) => {
-  // code for enlarging images -TODO-
-  e.preventDefault()
-  document.querySelector('#enlargedPhoto').style.display = 'flex'
-  document.querySelector('#img11').src = document.querySelector('#img1').src
-})
+document
+  .querySelector('#enlargedPhoto')
+  .addEventListener('click', async (e) => {
+    document.querySelector('#enlargedPhoto').style.display = 'none'
+  })
 
 document
   .querySelector('#modifySolutionAction')
@@ -149,7 +148,7 @@ document
           'Successfuly modified solution!'
         setTimeout(() => {
           window.location.href = '/problems/' + id
-        }, 3000)
+        }, 2000)
       }
     })
   })
@@ -177,3 +176,64 @@ document
       }
     })
   })
+
+// Begin enlarge image listeners
+document.querySelector('#img1').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img1').src
+})
+
+document.querySelector('#img2').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img2').src
+})
+
+document.querySelector('#img3').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img3').src
+})
+
+document.querySelector('#img4').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img4').src
+})
+
+document.querySelector('#img5').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img5').src
+})
+
+document.querySelector('#img6').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img6').src
+})
+
+document.querySelector('#img7').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img7').src
+})
+
+document.querySelector('#img8').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img8').src
+})
+
+document.querySelector('#img9').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img9').src
+})
+
+document.querySelector('#img10').addEventListener('click', async (e) => {
+  e.preventDefault()
+  document.querySelector('#enlargedPhoto').style.display = 'flex'
+  document.querySelector('#img11').src = document.querySelector('#img10').src
+})

@@ -10,7 +10,7 @@
     <link rel="icon" href="/img/icon.png">
 </head>
 
-<body class="mb-5">
+<body class="mb-8">
 
     {{>header this}}
     <div class="flex"> <!--Search form-->
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div class="{{#unless uniqueError}}hidden{{/unless}} absolute top-0 w-full h-full bg-gray-100 bg-opacity-50" id="addProblemModal"> <!--Modal background-->
+    <div class="{{#unless uniqueError}}hidden{{/unless}} fixed top-0 w-full h-full bg-gray-100 bg-opacity-50" id="addProblemModal"> <!--Modal background-->
     </div>
 
     <div class="{{#unless error}}hidden{{/unless}} absolute inset-y-1/4 inset-x-1/4 flex flex-col w-1/2" id="addProblemForm"> <!--Modal Box for adding problem-->
