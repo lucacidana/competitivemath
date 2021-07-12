@@ -303,11 +303,19 @@ router.get('/users/create', async (req, res) => {
 
 router.get('/users/me', auth, async (req, res) => {
   // GET profile
-  res.render('profile', {
-    name: req.user.name,
-    //solvedProblems: req.user.solvedProblems,
-    Professor: req.user.isProfessor,
-  })
+  if (req.user.email == 'stephy.maria12@yahoo.ro') {
+    res.render('profile', {
+      name: 'La multi ani!!',
+      //solvedProblems: req.user.solvedProblems,
+      Professor: req.user.isProfessor,
+    })
+  } else {
+    res.render('profile', {
+      name: req.user.name,
+      //solvedProblems: req.user.solvedProblems,
+      Professor: req.user.isProfessor,
+    })
+  }
 })
 
 router.get('/users/me/solutions', auth, async (req, res) => {
