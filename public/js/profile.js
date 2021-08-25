@@ -14,8 +14,7 @@ fetch('/users/me/data')
         document.querySelector('#userPhoto2').src =
           '/img/avatar_placeholder.png'
 
-        document.querySelector('#userPhoto').src =
-          'data:image/jpeg;base64,' + data.avatar
+        document.querySelector('#userPhoto').src = '/img/avatar_placeholder.png'
       }
     })
   })
