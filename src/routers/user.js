@@ -48,7 +48,7 @@ router.post('/users/login', upload.fields([]), async (req, res) => {
     //   token,
     // })
 
-    res.cookie('Authorization', token, { maxAge: 300000 })
+    res.cookie('Authorization', token, { maxAge: 3600000 })
     res.redirect('/users/me') //TEST
   } catch (e) {
     res.render('login', {
@@ -321,19 +321,12 @@ router.get('/users/create', async (req, res) => {
   res.render('signup')
 })
 
-router.get('/users/me', auth, async (req, res) => {
-  // Requires auth
-  // GET profile
-  res.render('profile', {
-    Professor: req.user.isProfessor,
-  })
-})
-
-router.get('/users/:id', async (req, res) => {
+router.get('/users/:id', auth, async (req, res) => {
   // Display profile page, check if
   res.render('profile', {
     Professor: req.user.isProfessor,
-    //isStudent: true/false
+    isSelf:
+      req.params.id === 'me' || req.user.id === req.params.id ? true : false,
   })
 })
 

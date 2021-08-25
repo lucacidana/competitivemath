@@ -1,9 +1,13 @@
 const avatarForm = document.querySelector('#avatarForm')
+const errorMessage = document.querySelector('#errorMessage')
 
-fetch('/users/me/data')
+const fetchURL = '/users/' + window.location.href.split('/')[4] + '/data'
+
+fetch(fetchURL)
   .then((response) => {
     response.json().then((data) => {
       console.log(data)
+
       if (data.avatar) {
         document.querySelector('#userPhoto2').src =
           'data:image/jpeg;base64,' + data.avatar
@@ -15,6 +19,15 @@ fetch('/users/me/data')
           '/img/avatar_placeholder.png'
 
         document.querySelector('#userPhoto').src = '/img/avatar_placeholder.png'
+      }
+
+      document.querySelector('#userName').textContent = data.name
+      document.querySelector('#userEmail').textContent = data.email
+      document.querySelector('#completedProblems').textContent =
+        'Completed problems: ' + data.solvedProblems.length
+
+      if (data.isProfessor) {
+        document.querySelector('#userDiv').classList.add('ring-2')
       }
     })
   })
@@ -55,6 +68,7 @@ document
     )
 
     fetch('/users/me/avatar', {
+      // POST FILE
       // Should be the same as doing it with a form, but keeping this for studying reasons
       method: 'POST',
       body: formData,
@@ -63,24 +77,20 @@ document
         if (data.status === 400) {
           throw new Error('File too large!')
         } else if (data.status !== 200) {
-          console.log('Something wrong has happened!')
+          errorMessage.style.display = 'inline'
+          errorMessage.textContent = 'S-a produs o eroare!'
         } else {
-          console.log('Succesfully uploaded!')
+          errorMessage.style.display = 'inline'
+          errorMessage.classList.remove('text-red-900')
+          errorMessage.classList.add('text-green-900')
+          errorMessage.textContent = 'Poza uploadata cu succes!'
           setTimeout(() => {
             window.location.href = window.location.href
           }, 2000)
         }
       })
       .catch((error) => {
-        console.log(error)
+        errorMessage.style.display = 'inline'
+        errorMessage.textContent = 'Poza selectata trebuie sa fie > 1mb'
       })
   })
-
-// avatarForm.addEventListener('submit', async (e) => {
-//   e.preventDefault()
-//   console.log(new FormData(avatarForm))
-//   fetch('/users/me/avatar', {
-//     method: 'POST',
-//     body: new FormData(avatarForm),
-//   })
-// })

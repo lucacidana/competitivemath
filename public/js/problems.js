@@ -79,6 +79,15 @@ if (window.location.href.includes('?')) {
   })
 }
 
+document
+  .querySelector('#problemSearch')
+  .addEventListener('keyup', async (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      searchForm.submit()
+    }
+  })
+
 // Populate query via form
 searchForm.addEventListener('submit', async (e) => {
   e.preventDefault()
