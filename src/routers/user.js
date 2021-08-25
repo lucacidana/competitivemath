@@ -6,6 +6,7 @@ const Problem = require('../models/problem')
 const { sendWelcomeEmail, sendCancelationEmail } = require('../emails/account')
 const validator = require('validator')
 const multer = require('multer')
+const sharp = require('sharp')
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -199,7 +200,7 @@ router.delete('/users/me/students/:id')
 // Begin PATCH methods
 router.post('/users/me', [upload.fields([]), auth], async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'email', 'password', 'age']
+  const allowedUpdates = ['name', 'email', 'password']
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   )
@@ -211,6 +212,7 @@ router.post('/users/me', [upload.fields([]), auth], async (req, res) => {
   try {
     updates.forEach((update) => (req.user[update] = req.body[update]))
     await req.user.save()
+    res.clearCookie('Authorization')
     res.redirect('/users/me')
   } catch (e) {
     res.status(400).send(e)
@@ -231,6 +233,24 @@ router.post('/recover', upload.fields([]), async (req, res) => {
     res.status(400).send()
   }
 })
+
+router.post(
+  '/users/me/avatar',
+  [auth, upload.single('avatar')],
+  async (req, res) => {
+    const buffer = await sharp(req.file.buffer)
+      .resize({ width: 250, height: 300 })
+      .jpeg({ quality: 80 })
+      .toBuffer()
+
+    req.user.avatar = buffer
+    await req.user.save()
+    res.send()
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: 'File too large!' })
+  }
+)
 
 router.post(
   //Modify a solution
@@ -302,19 +322,38 @@ router.get('/users/create', async (req, res) => {
 })
 
 router.get('/users/me', auth, async (req, res) => {
+  // Requires auth
   // GET profile
-  if (req.user.email == 'stephy.maria12@yahoo.ro') {
-    res.render('profile', {
-      name: 'La multi ani!!',
-      //solvedProblems: req.user.solvedProblems,
-      Professor: req.user.isProfessor,
-    })
-  } else {
-    res.render('profile', {
-      name: req.user.name,
-      //solvedProblems: req.user.solvedProblems,
-      Professor: req.user.isProfessor,
-    })
+  res.render('profile', {
+    Professor: req.user.isProfessor,
+  })
+})
+
+router.get('/users/:id', async (req, res) => {
+  // Display profile page, check if
+  res.render('profile', {
+    Professor: req.user.isProfessor,
+    //isStudent: true/false
+  })
+})
+
+router.get('/users/:id/data', auth, async (req, res) => {
+  if (req.params.id === 'me') {
+    try {
+      res.send(req.user)
+    } catch (e) {
+      res.status(404).send()
+    }
+  }
+  try {
+    const user = await User.findById(req.params.id) //Limit access to data
+
+    if (!user) {
+      throw new Error()
+    }
+    res.send(user)
+  } catch (e) {
+    res.status(404).send()
   }
 })
 

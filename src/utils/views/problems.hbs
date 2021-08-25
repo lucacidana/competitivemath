@@ -54,7 +54,7 @@
     <div class="{{#unless uniqueError}}hidden{{/unless}} fixed top-0 w-full h-full bg-gray-100 bg-opacity-50" id="addProblemModal"> <!--Modal background-->
     </div>
 
-    <div class="{{#unless error}}hidden{{/unless}} absolute inset-y-1/4 inset-x-1/4 flex flex-col w-1/2" id="addProblemForm"> <!--Modal Box for adding problem-->
+    <div class="{{#unless error}}hidden{{/unless}} absolute inset-y-1/4 inset-x-1/4 flex flex-col" id="addProblemForm"> <!--Modal Box for adding problem-->
 
             <div class="self-center bg-green-50 rounded-lg p-3 ring-2 ring-green-200 shadow-inner">
 
@@ -64,13 +64,14 @@
                     <div>
                         <label class="text-green-800 font-light text-2xl">Title:
                             <input class="ml-5 w-1/3 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                            type="text" name="title" id="addTitle"placeholder="Introduce a descriptive title" required>
+                            type="text" name="title" id="addTitle" placeholder="Introduce a descriptive title" required>
                         </label>
                     </div>
                     <div class="">
                         <h2 class="text-green-800 font-light text-2xl">Description:</h2>
-                        <textarea class="resize-none border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                        type="textarea" name="description" id="addDesc" rows="7" cols="100" placeholder="Write the problem's description" required></textarea>
+                        <textarea class="resize-none box-border w-full border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+                         type="textarea" name="description"
+                        id="addDesc" rows="7" placeholder="Write the problem's description" required></textarea>
                     </div>
                     <div class="">
                         <h2 class="inline text-green-800 font-light text-lg">Category:</h2>

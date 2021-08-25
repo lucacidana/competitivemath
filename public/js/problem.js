@@ -84,7 +84,6 @@ fetch('/problemList/' + id).then((response) => {
     .catch((error) => {
       document.querySelector('#problemTitle').textContent =
         "Problem doesn't exist"
-      console.log(error)
     })
 })
 
