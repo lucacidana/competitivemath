@@ -73,24 +73,14 @@
                <!--User info, edit button-->
                <p id="userEmail"></p>
                <p class="hover:text-green-500"><a href="/users/me/solutions" id="completedProblems"></a></p>
-               <p class="hover:text-green-500"><a href="" id="Ranking">Ranking Pos:</a></p>
+               <p class="hover:text-green-500"><a href="" id="Ranking"></a></p>
                <button class="{{#unless isSelf}} hidden {{/unless}} font-light text-lg text-green-900 hover:text-green-500" id="editUser">Edit user<img class="inline" width="15" src="/img/edit.png"></button>
             </div>
          </div>
-         <div class="flex flex-col flex-grow space-y-4 p-4 bg-green-50 shadow-inner rounded-lg">
-            <!--Newest problems feed-->
+         <div class="flex flex-col flex-grow space-y-4 p-4 bg-green-50 shadow-inner rounded-lg" id="solutionFeed">
+            <!--Newest solutions feed-->
             <div class="font-extralight text-3xl text-green-900 text-center">
-               <p>Newest Problems</p>
-            </div>
-            <div class="mt-6 p-2 bg-white rounded-lg shadow" id="problem1">
-               <!--Structure of a problem entry-->
-               <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link1"></a>
-               <span class="float-right space-x-1">
-                  <!--Example of float in div, inline items with span, spacing within child elems-->
-                  <span class="p-0.5 border border-transparent text-white font-light rounded" id="category1"></span>
-                  <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty1"></span>
-               </span>
-               <p class="font-light truncate" id="short1">Short desc</p>
+               <p>Solutiile tale</p>
             </div>
          </div>
          <div>
