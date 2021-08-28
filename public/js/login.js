@@ -57,9 +57,7 @@ document
           }
         })
         .catch((error) => {
-          console.log(
-            (document.querySelector('#recoveryError').textContent = error)
-          )
+          console.log(error)
         })
     }
   })

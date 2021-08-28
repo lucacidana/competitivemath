@@ -134,12 +134,12 @@ router.get('/problems', async (req, res) => {
 
   const token = req.cookies['Authorization'] // This could be cleaner
   let decoded = ''
-  let Professor = false
+
   if (token !== undefined) {
     decoded = jwt.verify(token, process.env.JWT_SECRET)
   }
 
-  const user = await User.findOne({ password: decoded.password }) //, 'tokens.token': token })
+  const user = await User.findOne({ password: decoded.password }).lean() //, 'tokens.token': token })
 
   res.render('problems', {
     Professor: user ? user.isProfessor : '',
@@ -164,7 +164,8 @@ router.get('/problemList', async (req, res) => {
         skip: req.query.skip ? parseInt(req.query.skip) : 0,
         limit: 10,
       }
-    )
+    ).lean()
+
     if (problems.length !== 0) {
       res.send(problems)
     } else {
@@ -180,8 +181,7 @@ router.get('/problemList/:id', async (req, res) => {
   // Getting a problem ID can be done publicly, without auth
   try {
     let decoded = ''
-    const problem = await Problem.findById(req.params.id)
-
+    const problem = await Problem.findById(req.params.id).lean()
     const token = req.cookies['Authorization'] //.replace('Bearer ', '') // Verify if a user is logged in or not (auth middleware throws error)
     if (token !== undefined) {
       decoded = jwt.verify(token, process.env.JWT_SECRET)
@@ -206,6 +206,27 @@ router.get('/problemList/:id', async (req, res) => {
   }
 })
 
+router.get('/problemList/:id/:studId', auth, async (req, res) => {
+  // Returns a problem with id = :id and the solution of :studId
+  try {
+    if (
+      !req.user.students.some(
+        (student) => student.studentId == req.params.studId
+      )
+    ) {
+      res.send()
+    } else {
+      const problem = await Problem.findById(req.params.id).lean()
+      const user = await User.findById(req.params.studId)
+      const solution = await user.getSolvedProblem(req.params.id)
+
+      res.send({ problem, solution })
+    }
+  } catch (error) {
+    res.send(error)
+  }
+})
+
 router.get('/problems/:id', async (req, res) => {
   let decoded = ''
   let Professor = ''
@@ -214,7 +235,7 @@ router.get('/problems/:id', async (req, res) => {
   if (token !== undefined) {
     decoded = jwt.verify(token, process.env.JWT_SECRET)
   }
-  const user = await User.findOne({ password: decoded.password }) //, 'tokens.token': token })
+  const user = await User.findOne({ password: decoded.password }).lean() //, 'tokens.token': token })
   Professor = user ? user.isProfessor : ''
 
   res.render('problem', {
@@ -239,6 +260,53 @@ router.get('/problems/:id/:studId', auth, async (req, res) => {
     }
   } else {
     res.redirect(`/problems/${req.params.id}`)
+  }
+})
+
+router.post('/problems/:id/:studId', auth, async (req, res) => {
+  // Perhaps make the nested 'if's a bit cleaner
+  // Grade a solution, optionally leave a comment
+
+  if (!req.user.isProfessor) {
+    // If user is auth but not a professor
+    res.status(401).send({})
+  } else if (
+    //check if req.params.id is in student list & if we have the body
+    req.user.students.some(
+      (student) => student.studentId == req.params.studId
+    ) &&
+    req.body.comment &&
+    req.body.grade
+  ) {
+    try {
+      let user = await User.findById(req.params.studId)
+      if (!user) {
+        res.status(404).send('User does not exist') // In case URL is changed manually with a student which deleted its account
+      } else {
+        user.solvedProblems.forEach((solution) => {
+          if (solution.problemId == req.params.id) {
+            solution.grading = [
+              {
+                comment: req.body.comment,
+                grade: req.body.grade,
+                gradedBy: req.user.name,
+                professorId: req.user._id,
+              },
+            ]
+          }
+        })
+        if (user.isModified()) {
+          await user.save()
+          res.send({})
+        } else {
+          res.status(404).send('Solution not found or grade has not changed')
+        }
+      }
+    } catch (e) {
+      res.status(500).send()
+    }
+  } else {
+    res.status(400).send()
   }
 })
 

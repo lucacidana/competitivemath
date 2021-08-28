@@ -1,7 +1,7 @@
 const avatarForm = document.querySelector('#avatarForm')
 const errorMessage = document.querySelector('#errorMessage')
-
-const fetchURL = '/users/' + window.location.href.split('/')[4] + '/data'
+const id = window.location.href.split('/')[4]
+const fetchURL = '/users/' + id + '/data'
 
 fetch(fetchURL)
   .then((response) => {
@@ -28,22 +28,30 @@ fetch(fetchURL)
 		 <!--Example of float in div, inline items with span, spacing within child elems-->
 		 <span class="p-0.5 border border-transparent text-white font-light rounded" id="category${i}"></span>
 		 <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty${i}"></span>
-		 <span class="hidden p-0.5 border border-transparent text-white bg-gray-600 font-light rounded" id="grade${i}"></span>
+		 <span class="hidden p-0.5 border border-transparent text-white bg-gray-400 font-light rounded" id="grade${i}"></span>
 	</span>
 	`
             document.getElementById('solutionFeed').appendChild(content)
 
             document
               .querySelector(`#link${i}`)
-              .setAttribute('href', `/problems/${solution.problemId}`)
+              .setAttribute(
+                'href',
+                `/problems/${
+                  solution.problemId + (id !== 'me' ? `/${id}` : '')
+                }`
+              )
             document.querySelector(`#link${i}`).textContent = solution.title
             document.querySelector(`#category${i}`).textContent =
               solution.category
             document.querySelector(`#difficulty${i}`).textContent =
               solution.difficulty
-            if (solution.grading) {
-              document.querySelector(`#grade${i}`).textContent =
-                solution.grading.grade
+            if (solution.grading[0]) {
+              if (solution.grading[0].grade) {
+                document.querySelector(`#grade${i}`).textContent =
+                  'Nota: ' + solution.grading[0].grade
+                document.querySelector(`#grade${i}`).style.display = 'inline'
+              }
             }
             if (solution.category === 'Algebra') {
               document
@@ -155,7 +163,7 @@ fetch(fetchURL)
           document.querySelector('#userPhoto').src =
             '/img/avatar_placeholder.png'
         }
-        console.log(user)
+
         document.querySelector('#userName').textContent = user.name
         document.querySelector('#userEmail').textContent = user.email
         document.querySelector('#completedProblems').textContent =
@@ -171,7 +179,9 @@ fetch(fetchURL)
           document.querySelector('#userDiv').classList.add('ring-2')
         }
       })
-      .catch((error) => {})
+      .catch((error) => {
+        console.log(error)
+      })
   })
   .catch((error) => {
     console.log(error)

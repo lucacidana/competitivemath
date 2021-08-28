@@ -69,7 +69,7 @@ router.post(
     if (req.user.isProfessor) {
       // Verificam daca cererea este facuta de un profesor
       try {
-        const user = await User.findOne({ email: req.body.email }) // Cautam utilizatorul dupa email
+        const user = await User.findOne({ email: req.body.email }).lean() // Cautam utilizatorul dupa email
         const id = user ? user._id.toString() : null
         if (!user || user.isProfessor) {
           // Nu se gaseste studentul dupa email sau email-ul este a unui profesor
@@ -104,75 +104,6 @@ router.post(
     }
   }
 )
-
-router.post('/users/me/students/:id/:problem', auth, async (req, res) => {
-  // Perhaps make the nested 'if's a bit cleaner
-  // Grade a solution, optionally leave a comment
-  if (!req.user.isProfessor) {
-    // If user is auth but not a professor
-    res.status(401).send()
-  } else if (
-    //check if req.params.id is in student list & if we have the body
-    req.user.students.some(
-      (student) => student.studentId.toString() === req.params.id
-    ) &&
-    req.body.comment &&
-    req.body.grade
-  ) {
-    try {
-      const user = await User.findById(req.params.id)
-      if (!user) {
-        res.status(404).send('User does not exist') // In case URL is changed manually with a student which deleted its account
-      } else {
-        user.solvedProblems.forEach((solution) => {
-          if (solution.problemId === req.params.problem) {
-            solution.comment = req.body.comment
-            solution.grading = req.body.grade
-          }
-        })
-        if (user.isModified()) {
-          await user.save()
-          res.send({ Comment: req.body.comment, Grade: req.body.grade })
-        } else {
-          res.status(404).send('Solution not found or grade has not changed')
-        }
-      }
-    } catch (e) {
-      res.status(500).send()
-    }
-  } else {
-    res.status(400).send()
-  }
-})
-
-// Begin DELETE methods
-router.delete('/users/me/solutions/:id', auth, async (req, res) => {
-  // delete solution for a problem
-  const problem = await Problem.findById(req.params.id)
-  if (problem) {
-    try {
-      req.user.solvedProblems = req.user.solvedProblems.filter((solutions) => {
-        return solutions.problemId !== req.params.id
-      })
-      await req.user.save()
-      res.send('Solution was successfully deleted')
-    } catch (e) {
-      res.status(500).send(e)
-    }
-  } else {
-    res.status(404).send('Solution for problem was not found')
-  }
-})
-
-router.delete('/users/me', auth, async (req, res) => {
-  try {
-    await req.user.remove()
-    sendCancelationEmail(req.user.email, req.user.name)
-    res.send(req.user)
-  } catch (e) {
-    res.status(500).send(e)
-  }
-})
 
 // Begin PATCH methods
 router.post('/users/me', [upload.fields([]), auth], async (req, res) => {
@@ -246,9 +177,9 @@ router.post(
     if (req.body.solution) {
       try {
         req.user.solvedProblems.forEach((solution) => {
-          if (solution.problemId === req.params.id) {
+          if (solution.problemId == req.params.id) {
             solution.solution = req.body.solution
-            solution.grading.grade = null
+            solution.grading[0].grade = null
             solution.solutionFiles = req.body.images
             solution.updatedAt = Date.now()
           }
@@ -272,7 +203,7 @@ router.post(
 router.get('/', async (req, res) => {
   try {
     const token = req.cookies['Authorization'].replace('Bearer ', '') // Verify if a user is logged in or not (auth middleware throws error)
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    jwt.verify(token, process.env.JWT_SECRET)
     res.redirect('/users/me')
   } catch (e) {
     res.redirect('/users/login')
@@ -309,7 +240,7 @@ router.get('/users/:id', auth, async (req, res) => {
 })
 
 router.get('/users/:id/data', auth, async (req, res) => {
-  if (req.params.id === 'me') {
+  if (req.params.id === 'me' || req.params.id == req.user._id) {
     try {
       let completedProblems = req.user.solvedProblems.length
       if (!req.user.isProfessor) {
@@ -326,7 +257,9 @@ router.get('/users/:id/data', auth, async (req, res) => {
           {
             limit: 10,
           }
-        ).sort({ updatedAt: 'desc' })
+        )
+          .sort({ updatedAt: 'desc' })
+          .lean()
         res.send({ user: req.user, problems, completedProblems })
       }
     } catch (e) {
@@ -335,7 +268,7 @@ router.get('/users/:id/data', auth, async (req, res) => {
   }
   try {
     // Public profile
-    const user = await User.findById(req.params.id)
+    const user = await User.findById(req.params.id).lean()
 
     if (!user) {
       throw new Error()
@@ -363,7 +296,7 @@ router.get('/users/:id/data', auth, async (req, res) => {
     user.solvedProblems.forEach((solution) => {
       solution.solution = null
       solution.solutionFiles = null
-      solution.grading = null
+      solution.grading = []
     })
     res.send({ user, problem: undefined, completedProblems })
   } catch (e) {
@@ -384,7 +317,7 @@ router.get('/users/:id/solutions/data', auth, async (req, res) => {
     if (req.params.id === 'me') {
       user = req.user
     } else {
-      user = await User.findById(req.params.id)
+      user = await User.findById(req.params.id).lean()
     }
     let Search = req.query.search ? req.query.search.replace('+', ' ') : ''
 
@@ -437,42 +370,6 @@ router.get('/users/:id/solutions/data', auth, async (req, res) => {
   }
 })
 
-router.get('/users', auth, async (req, res) => {
-  // Get list of users by searching for email or name
-  const Search = req.body.search
-  if (!Search || Search.length < 3) {
-    // No need for 2nd condition -------- TO DO ---------
-    // Search term shouldn't be less than 2 characters (to avoid fetching half of the db)
-    res
-      .status(400)
-      .send('Please provide a search term longer than 2 characters')
-  } else {
-    try {
-      if (validator.isEmail(Search)) {
-        const result = await User.find({ email: Search }, 'name email age', {
-          skip: req.query.skip ? parseInt(req.query.skip) : 0,
-          limit: req.query.limit ? parseInt(req.query.limit) : 10,
-        })
-        res.send(result.length !== 0 ? result : 'No user found')
-      } else {
-        const result = await User.find(
-          {
-            name: { $regex: Search, $options: 'i' }, // Use regex to find parts of the name, 'i' option for case insensitive
-          },
-          'name email age',
-          {
-            skip: req.query.skip ? parseInt(req.query.skip) : 0,
-            limit: req.query.limit ? parseInt(req.query.limit) : 10,
-          }
-        )
-        res.send(result.length !== 0 ? result : 'No user found')
-      }
-    } catch (e) {
-      res.status(500).send()
-    }
-  }
-})
-
 router.get('/users/me/studentList', auth, async (req, res) => {
   if (req.user.isProfessor) {
     try {
@@ -493,7 +390,7 @@ router.get('/users/me/studentList', auth, async (req, res) => {
             skip: req.query.skip ? parseInt(req.query.skip) : 0,
             limit: 36,
           }
-        )
+        ).lean()
         if (users.length !== 0) {
           res.send(users)
         } else {
@@ -525,20 +422,84 @@ router.get('/users/me/students', auth, async (req, res) => {
   }
 })
 
-router.get('/users/me/students/delete/:id', auth, async (req, res) => {
-  // Delete an individual student
-  try {
-    req.user.students = req.user.students.filter((student) => {
-      return student.studentId.toString() !== req.params.id
-    })
+// router.get('/users', auth, async (req, res) => {
+//   // Get list of users by searching for email or name
+//   const Search = req.body.search
+//   if (!Search || Search.length < 3) {
+//     // No need for 2nd condition -------- TO DO ---------
+//     // Search term shouldn't be less than 2 characters (to avoid fetching half of the db)
+//     res
+//       .status(400)
+//       .send('Please provide a search term longer than 2 characters')
+//   } else {
+//     try {
+//       if (validator.isEmail(Search)) {
+//         const result = await User.find({ email: Search }, 'name email age', {
+//           skip: req.query.skip ? parseInt(req.query.skip) : 0,
+//           limit: req.query.limit ? parseInt(req.query.limit) : 10,
+//         }).lean()
+//         res.send(result.length !== 0 ? result : 'No user found')
+//       } else {
+//         const result = await User.find(
+//           {
+//             name: { $regex: Search, $options: 'i' }, // Use regex to find parts of the name, 'i' option for case insensitive
+//           },
+//           'name email age',
+//           {
+//             skip: req.query.skip ? parseInt(req.query.skip) : 0,
+//             limit: req.query.limit ? parseInt(req.query.limit) : 10,
+//           }
+//         )
+//         res.send(result.length !== 0 ? result : 'No user found')
+//       }
+//     } catch (e) {
+//       res.status(500).send()
+//     }
+//   }
+// })
 
-    await req.user.save()
-    res.redirect('/users/me/students?name=')
+// router.get('/users/me/students/delete/:id', auth, async (req, res) => {
+//   // Delete an individual student
+//   try {
+//     req.user.students = req.user.students.filter((student) => {
+//       return student.studentId.toString() !== req.params.id
+//     })
 
-    // const user = await User.findById(req.params.id, 'name email solutions')
-  } catch (e) {
-    res.status(500).send()
-  }
-})
+//     await req.user.save()
+//     res.redirect('/users/me/students?name=')
 
+//     // const user = await User.findById(req.params.id, 'name email solutions')
+//   } catch (e) {
+//     res.status(500).send()
+//   }
+// })
+
+// Begin DELETE methods
+// router.delete('/users/me/solutions/:id', auth, async (req, res) => {
+//   // delete solution for a problem
+//   const problem = await Problem.findById(req.params.id)
+//   if (problem) {
+//     try {
+//       req.user.solvedProblems = req.user.solvedProblems.filter((solutions) => {
+//         return solutions.problemId !== req.params.id
+//       })
+//       await req.user.save()
+//       res.send('Solution was successfully deleted')
+//     } catch (e) {
+//       res.status(500).send(e)
+//     }
+//   } else {
+//     res.status(404).send('Solution for problem was not found')
+//   }
+// })
+
+// router.delete('/users/me', auth, async (req, res) => {
+//   try {
+//     await req.user.remove()
+//     sendCancelationEmail(req.user.email, req.user.name)
+//     res.send(req.user)
+//   } catch (e) {
+//     res.status(500).send(e)
+//   }
+// })
 module.exports = router

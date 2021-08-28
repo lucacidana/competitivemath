@@ -28,7 +28,12 @@
           <span class="p-0.5 border border-transparent text-white font-light rounded" id="problemCategory"></span>
           <span class="p-0.5 border border-transparent text-white font-light rounded" id="problemDifficulty"></span>
           {{#if loggedIn}}
-          <span class="float-right"><button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="problemButton"></button></span>{{/if}}
+          <span class="float-right"><button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:ring-green-600 focus:outline-none focus:ring-2 focus:ring-opacity-50" id="problemButton"></button></span>{{/if}}
+        </div>
+        <div>
+          <p class="font-medium text-lg text-green-800" id="solutionGrade"></p>
+          <p class="font-medium text-lg text-green-800" id="solutionComment"></p>
+          <a class="font-medium text-lg text-green-800 hover:text-green-400" href="" id="gradedBy"></a>
         </div>
       </div>
 
@@ -55,11 +60,6 @@
           <img class="hidden max-w-full max-y-full object-contain hover:opacity-75" src="" alt="" id="img9" />
           <img class="hidden max-w-full max-y-full object-contain hover:opacity-75" src="" alt="" id="img10" />
         </div>
-        <div>
-          <p class="font-light text-lg text-green-800" id="solutionGrade"></p>
-          <p class="font-light text-lg text-green-800" id="solutionComment"></p>
-          <a href="" id="gradedBy"><p class="font-light text-lg text-green-800"></p></a>
-        </div>
       </div>
     </div>
 
@@ -71,7 +71,7 @@
       <img class="m-auto max-w-full max-y-full duration-500 transition" src="" alt="" id="img11" />
     </div>
 
-    <div class="hidden absolute inset-y-1/3 inset-x-1/3 flex flex-col" id="addSolutionForm">
+    <div class="hidden fixed inset-y-1/3 inset-x-1/3 flex flex-col" id="addSolutionForm">
       <!--Add solution modal form-->
       <div class="self-start bg-green-50 rounded-lg ring-2 ring-green-200 shadow-inner p-2 space-y-2">
         <div>
@@ -106,6 +106,26 @@
         </div>
       </div>
     </div>
+
+    <div class="hidden fixed inset-y-1/4 inset-x-1/4 flex flex-row" id="gradeSolutionForm">
+      <div class="flex flex-col w-full bg-green-50 rounded-lg ring-2 ring-green-200 shadow-inner p-2">
+        <div class="flex mb-4">
+          <h2 class="font-extralight text-2xl text-green-900">Noteaza solutia</h2>
+        </div>
+        <div class="flex w-full h-full space-x-4">
+          <p>Comentariu:</p>
+          <textarea class="w-full h-full border-box" id="gradeComment" placeholder="Adauga un comentariu"></textarea>
+        </div>
+        <div>
+          <label>Nota: <input type="number" id="gradeNumber" min="1" max="10" /></label>
+        </div>
+        <div class="mt-2">
+          <button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:ring-green-600 focus:outline-none focus:ring-2 focus:ring-opacity-50" id="submitGrade">Adauga</button>
+          <p class="ml-8 inline" id="gradeError"></p>
+        </div>
+      </div>
+    </div>
+
     {{>footer}}
     <script src="/js/problem.js"></script>
   </body>
