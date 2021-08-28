@@ -464,21 +464,21 @@ router.get('/users/me/students', auth, async (req, res) => {
 //   }
 // })
 
-// router.get('/users/me/students/delete/:id', auth, async (req, res) => {
-//   // Delete an individual student
-//   try {
-//     req.user.students = req.user.students.filter((student) => {
-//       return student.studentId.toString() !== req.params.id
-//     })
+router.get('/users/me/students/delete/:id', auth, async (req, res) => {
+  // Delete an individual student
+  try {
+    req.user.students = req.user.students.filter((student) => {
+      return student.studentId.toString() !== req.params.id
+    })
 
-//     await req.user.save()
-//     res.redirect('/users/me/students?name=')
+    await req.user.save()
+    res.redirect('/users/me/students?name=')
 
-//     // const user = await User.findById(req.params.id, 'name email solutions')
-//   } catch (e) {
-//     res.status(500).send()
-//   }
-// })
+    // const user = await User.findById(req.params.id, 'name email solutions')
+  } catch (e) {
+    res.status(500).send()
+  }
+})
 
 // Begin DELETE methods
 // router.delete('/users/me/solutions/:id', auth, async (req, res) => {
