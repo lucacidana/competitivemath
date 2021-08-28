@@ -54,7 +54,7 @@ document
     if (email.length < 1) {
       e.preventDefault()
       document.querySelector('#addStudentError').textContent =
-        'Please introduce a valid email'
+        'Introdu un email valid'
     }
   })
 
@@ -123,7 +123,7 @@ if (window.location.href.includes('?name=')) {
       })
       .catch((error) => {
         document.querySelector('#studentImage').style.display = 'none'
-        studentHeading.textContent = 'No students were found!'
+        studentHeading.textContent = 'Nu s-au gasit studenti!'
       })
   })
 }

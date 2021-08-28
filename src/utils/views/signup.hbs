@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,35 +12,35 @@
     <div class="flex flex-col">
       <div class="self-center">
         {{>title}}
-        <p class="text-3xl mb-8 font-extralight">New Account</p>
+        <p class="text-3xl mb-8 font-extralight">Cont nou</p>
         <div class="border border-transparent rounded-lg pt-8 pl-8 pr-8 bg-green-50">
           <form action="/users/create" method="POST" enctype="multipart/form-data">
             <div class="flex flex-row m-1">
-              <p class="w-3/4 text-green-800">Name:</p>
+              <p class="w-3/4 text-green-800">Nume:</p>
               <input class="w-full border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent" type="text" name="name" required />
             </div>
             <div class="flex flex-row m-1">
-              <p class="w-3/4 text-green-800">Password:</p>
+              <p class="w-3/4 text-green-800">Parola:</p>
               <input class="w-full border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent" type="password" name="password" id="password1" minlength="6" required />
             </div>
             <div class="flex flex-row m-1">
-              <p class="w-3/4 text-green-800">Verify password:</p>
+              <p class="w-3/4 text-green-800">Confirma parola:</p>
               <input class="w-full border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent" type="password" id="password2" minlength="6" required />
             </div>
-            <p class="text-xs text-green-400">Password should have at least 6 characters</p>
+            <p class="text-xs text-green-400">Parola trebuie sa aiba minim 6 caractere</p>
             <div class="flex flex-row m-1">
               <p class="w-3/4 text-green-800">Email:</p>
               <input class="w-full border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent" type="email" name="email" required />
             </div>
             <div class="flex flex-row m-1">
-              <p class="w-3/4 text-green-800">Age:</p>
+              <p class="w-3/4 text-green-800">Varsta:</p>
               <input class="w-full border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent" type="number" name="age" max="100" min="0" required />
             </div>
             <div class="flex flex-row mt-6">
               <label class="mr-1 hover:text-green-500" id="studentLabel">Student <input class="hidden" type="radio" name="isProfessor" value="false" checked /></label>
-              <label class="ml-8 mr-1 hover:text-green-500" id="professorLabel">Professor<input class="hidden" type="radio" name="isProfessor" value="true" /></label>
+              <label class="ml-8 mr-1 hover:text-green-500" id="professorLabel">Profesor<input class="hidden" type="radio" name="isProfessor" value="true" /></label>
             </div>
-            <div class="flex flex-row space-x-44 mt-8">
+            <div class="flex flex-row space-x-44 mt-4">
               <button class="text-white px-1 bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" type="submit">Sign Up</button>
               <p id="errorMessage">{{error}}</p>
             </div>

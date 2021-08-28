@@ -6,7 +6,7 @@ const error = document.querySelector('#errorMessage')
 signUpForm.addEventListener('submit', (e) => {
   if (password1.value !== password2.value) {
     e.preventDefault()
-    error.textContent = 'Passwords do not match!'
+    error.textContent = 'Parolele nu coincid!'
   }
 })
 

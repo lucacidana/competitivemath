@@ -22,9 +22,9 @@ document
     if (password1 !== password2) {
       e.preventDefault()
       document.querySelector('#recoveryError').textContent =
-        'Password do not match!'
+        'Parolele nu potrivesc!'
     } else if (password1.length < 6 || password1.includes('password')) {
-      document.querySelector('#recoveryError').textContent = 'Invalid password!'
+      document.querySelector('#recoveryError').textContent = 'Parola invalida!'
     } else {
       //fetch
       fetch('/recover', {
@@ -40,9 +40,9 @@ document
       })
         .then((response) => {
           if (response.status === 400) {
-            throw new Error('Email not valid')
+            throw new Error('Email invalid')
           } else if (response.status === 304) {
-            throw new Error('Password has to be different from last password')
+            throw new Error('Parola noua trebuie sa fie diferita de cea veche')
           } else {
             response.json().then((data) => {
               document

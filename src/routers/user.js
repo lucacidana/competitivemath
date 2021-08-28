@@ -30,8 +30,7 @@ router.post('/users/create', upload.fields([]), async (req, res) => {
     res.redirect('/users/me')
   } catch (e) {
     res.render('signup', {
-      // IMPORTANT TO REPRODUCE
-      error: 'Email already has an account',
+      error: 'Email-ul are deja un cont',
     })
   }
 })
@@ -46,7 +45,7 @@ router.post('/users/login', upload.fields([]), async (req, res) => {
     res.redirect('/users/me') //TEST
   } catch (e) {
     res.render('login', {
-      error: 'Incorrect email or password!',
+      error: 'Email sau parola invalida!',
     })
   }
 })
@@ -114,7 +113,7 @@ router.post('/users/me', [upload.fields([]), auth], async (req, res) => {
   )
 
   if (!isValidOperation) {
-    return res.status(400).send({ error: 'Invalid updates!' }) // catch
+    return res.status(400).send({ error: 'Schimbari invalide!' }) // catch
   }
 
   try {
@@ -184,7 +183,9 @@ router.post(
         req.user.solvedProblems.forEach((solution) => {
           if (solution.problemId == req.params.id) {
             solution.solution = req.body.solution
-            solution.grading[0].grade = null
+            if (solution.grading[0]) {
+              solution.grading[0].grade = null
+            }
             solution.solutionFiles = req.body.images
             solution.updatedAt = Date.now()
           }
@@ -194,12 +195,12 @@ router.post(
           await req.user.save()
           res.send()
         }
-        res.status(404).send('No solution to be modified was found')
+        res.status(404).send('Nu s-a gasit solutia')
       } catch (e) {
         res.status(500).send()
       }
     } else {
-      res.status(400).send('Please add a solution')
+      res.status(400).send('Adauga o solutie')
     }
   }
 )
@@ -368,7 +369,7 @@ router.get('/users/:id/solutions/data', auth, async (req, res) => {
       }
       res.send(user.solvedProblems)
     } else {
-      res.status(404).send({ error: 'No solutions found' })
+      res.status(404).send({ error: 'Nu s-au gasit solutii' })
     }
   } catch (e) {
     res.status(500).send(e)

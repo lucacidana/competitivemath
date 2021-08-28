@@ -45,7 +45,7 @@ if (id.includes('/')) {
           }
 
           document.querySelector('#problemButton').textContent =
-            'Grade solution'
+            'Noteaza solutia'
           document
             .querySelector('#problemButton')
             .classList.remove(
@@ -163,8 +163,8 @@ if (id.includes('/')) {
 
         if (document.querySelector('#problemButton')) {
           document.querySelector('#problemButton').textContent = problemSolution
-            ? 'Modify solution'
-            : 'Add solution'
+            ? 'Modifica solutia'
+            : 'Adauga solutie'
         }
         if (problemSolution) {
           document.querySelector('#solutionDescription').value =
@@ -222,7 +222,7 @@ if (id.includes('/')) {
       .catch((error) => {
         console.log(error)
         document.querySelector('#problemTitle').textContent =
-          "Problem doesn't exist"
+          'Problema nu exista'
       })
   })
 }
@@ -235,12 +235,12 @@ if (document.querySelector('#problemButton')) {
       document.querySelector('#modalBackground').style.display = 'block'
       if (
         document.querySelector('#problemButton').textContent ===
-        'Modify solution'
+        'Modifica solutia'
       ) {
         document.querySelector('#modifySolutionForm').style.display = 'flex'
       } else if (
         document.querySelector('#problemButton').textContent ===
-        'Grade solution'
+        'Noteaza solutia'
       ) {
         document.querySelector('#gradeSolutionForm').style.display = 'flex'
       } else {
@@ -283,23 +283,31 @@ document
     e.preventDefault()
     let URL = '/users/me/solutions/' + id
     fetch(URL, {
-      // Modify solution
+      // Modifica solutia
       method: 'POST',
       body: new FormData(document.querySelector('#modifySolutionAction')),
-    }).then((response) => {
-      if (response.status === 400) {
-        document.querySelector('#modFileError').textContent =
-          'File too large (>1mb)'
-      } else {
-        document.querySelector('#modFileError').classList.remove('text-red-500')
-        document.querySelector('#modFileError').classList.add('text-green-500')
-        document.querySelector('#modFileError').textContent =
-          'Successfuly modified solution!'
-        setTimeout(() => {
-          window.location.href = '/problems/' + id
-        }, 2000)
-      }
     })
+      .then((response) => {
+        if (response.status === 400) {
+          document.querySelector('#modFileError').textContent =
+            'Fisier prea mare (>1mb)'
+        } else {
+          document
+            .querySelector('#modFileError')
+            .classList.remove('text-red-500')
+          document
+            .querySelector('#modFileError')
+            .classList.add('text-green-500')
+          document.querySelector('#modFileError').textContent =
+            'Solutie modificata cu succes!'
+          setTimeout(() => {
+            window.location.href = '/problems/' + id
+          }, 2000)
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   })
 
 document
@@ -308,18 +316,18 @@ document
     e.preventDefault()
     let URL = '/problems/' + id
     fetch(URL, {
-      // Add solution
+      // Adauga solutie
       method: 'POST',
       body: new FormData(document.querySelector('#addSolutionAction')),
     }).then((response) => {
       if (response.status === 400) {
         document.querySelector('#addFileError').textContent =
-          'File too large (>1mb)'
+          'Fisier prea mare (>1mb)'
       } else {
         document.querySelector('#addFileError').classList.remove('text-red-500')
         document.querySelector('#addFileError').classList.add('text-green-500')
         document.querySelector('#addFileError').textContent =
-          'Successfuly added solution!'
+          'Solutie adaugata cu succes!'
         setTimeout(() => {
           window.location.href = '/problems/' + id
         }, 3000)

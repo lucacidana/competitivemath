@@ -74,7 +74,7 @@ if (window.location.href.includes('?')) {
       })
       .catch((error) => {
         problemDiv.style.display = 'block'
-        problemHeading.textContent = 'No problems were found!'
+        problemHeading.textContent = 'Problemele nu au fost gasite!'
       })
   })
 }
@@ -143,7 +143,7 @@ submitProblemForm.addEventListener('submit', async (e) => {
   ) {
     e.preventDefault()
     document.querySelector('#addProblemError').textContent =
-      'Title should have between 3 and 50 characters'
+      'Titlul trebuie sa aiba intre 3 si 50 de caractere'
   }
 
   if (
@@ -152,7 +152,7 @@ submitProblemForm.addEventListener('submit', async (e) => {
   ) {
     e.preventDefault()
     document.querySelector('#addProblemError').textContent =
-      'Description should have between 30 and 2000 characters'
+      'Descrierea trebuie sa aiba intre 30 si 2000 de caractere'
   }
 })
 

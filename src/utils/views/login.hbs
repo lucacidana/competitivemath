@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,28 +12,28 @@
     <div class="flex flex-col">
       <div class="self-center">
         {{>title}}
-        <p class="text-2xl pb-6 font-extralight">Welcome to Competitive Math!</p>
+        <p class="text-2xl pb-6 font-extralight">Bine ai venit la Competitive Math!</p>
         <form class="flex space-x-5 bg-green-100 rounded-lg p-5" action="/users/login" method="POST" enctype="multipart/form-data">
           <input
             class="border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
             type="email"
-            placeholder="Enter Email"
+            placeholder="Introdu email-ul"
             name="email"
             required
           />
           <input
             class="border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
             type="password"
-            placeholder="Enter Password"
+            placeholder="Introdu parola"
             name="password"
             required
           />
           <button class="text-white px-1 bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" type="submit">Login</button>
         </form>
         <p class="text-xs font-light text-red-500 mb-2">{{error}}</p>
-        <p>Don't have an account? <a href="/users/create" class="no-underline hover:underline text-green-500">Create one</a>.</p>
-        <p>Forgot your password? <a href="" class="no-underline hover:underline text-green-500" id="forgotPassword">Click here.</a></p>
-        <p>Continue as a <a href="/problems" class="hover:underline text-green-500">guest</a>.</p>
+        <p>Nu ai cont? <a href="/users/create" class="no-underline hover:underline text-green-500">Creaza-ti unul</a></p>
+        <p>Ti-ai uitat parola? <a href="" class="no-underline hover:underline text-green-500" id="forgotPassword">Click aici</a></p>
+        <p>Continua ca si <a href="/problems" class="hover:underline text-green-500">guest</a></p>
       </div>
     </div>
     <div class="hidden fixed top-0 w-full h-full bg-gray-100 bg-opacity-50" id="forgotPasswordModal">
@@ -41,36 +41,36 @@
     </div>
     <div class="hidden absolute inset-y-1/3 inset-x-1/3 flex flex-col" id="forgotPasswordForm">
       <div class="self-center bg-green-50 rounded-lg p-3 ring-2 ring-green-200 shadow-inner w-auto">
-        <h1 class="mb-5 font-extralight text-3xl text-green-900">Forgot password</h1>
+        <h1 class="mb-5 font-extralight text-3xl text-green-900">Recuperare parola</h1>
         <div class="flex flex-col text-lg font-light space-y-2" id="recoverPasswordForm">
           <div>
-            Your email:
+            Email-ul tau:
             <input
               type="email"
               class="float-right w-2/3 border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
               name="recoveryEmail"
               id="recoveryEmail"
-              placeholder="Enter Email"
+              placeholder="Introdu email-ul"
               required
             />
           </div>
           <div>
-            New password:
+            Parola noua:
             <input
               class="float-right border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
               type="password"
-              placeholder="Enter Password"
+              placeholder="Introdu parola"
               name="recoveryPassword"
               id="password1"
               required
             />
           </div>
           <div>
-            Confirm password:
+            Confirmare parola noua:
             <input
               class="ml-2 float-right border border-transparent focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
               type="password"
-              placeholder="Confirm Password"
+              placeholder="Confirma parola"
               id="password2"
               required
             />
@@ -88,11 +88,11 @@
     <div class="{{#unless loggedIn}}hidden{{/unless}} flex flex-col absolute inset-y-1/3 inset-x-1/3" id="logoutDiv">
       <div class="self-center bg-green-50 rounded-lg p-3 ring-2 ring-green-200 shadow-inner">
         <div>
-          <p class="mb-5 font-extralight text-lg text-green-900">You are already logged in.</p>
+          <p class="mb-5 font-extralight text-lg text-green-900">Esti deja logat.</p>
         </div>
         <div>
-          <button class="px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="logoutButton">Log Out</button>
-          <button class="float-right px-2 text-white rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50" id="cancelLogoutButton">Take me back</button>
+          <button class="px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="logoutButton">Delogheaza-ma</button>
+          <button class="float-right px-2 text-white rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50" id="cancelLogoutButton">Du-ma inapoi</button>
         </div>
       </div>
     </div>

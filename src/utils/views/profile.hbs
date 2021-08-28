@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
+    <title>Profil</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="icon" href="/img/icon.png" />
   </head>
@@ -17,7 +17,7 @@
       <div class="object-contain bg-green-50 shadow rounded-lg space-y-4 p-4">
         <div>
           <!--Edit user-->
-          <h1 class="font-extralight text-3xl text-green-900">Edit user</h1>
+          <h1 class="font-extralight text-3xl text-green-900">Editeaza profil</h1>
         </div>
         <div>
           <!--Profile Image-->
@@ -25,43 +25,43 @@
         </div>
         <div class="self-center">
           <input class="hidden" type="file" name="avatar" accept="image/*" id="uploadPhotoSelector" />
-          <button class="inline font-light text-green-900 hover:text-green-500" id="uploadPhotoButton">Upload profile photo <img class="inline" src="/img/photo.png" /></button>
-          <span class="hidden font-semibold text-red-900" id="errorMessage">test</span>
+          <button class="inline font-light text-green-900 hover:text-green-500" id="uploadPhotoButton">Uploadeaza imagine profil <img class="inline" src="/img/photo.png" /></button>
+          <span class="hidden font-semibold text-red-900" id="errorMessage"></span>
         </div>
         <form class="flex flex-col justify-items-start space-y-4" action="" method="POST" enctype="multipart/form-data">
           <div>
             <label class="text-green-800 font-light text-xl">
-              Change your email adress:
+              Schimba adresa de email:
               <input
                 class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
                 type="email"
                 name="email"
                 id="modifyEmail"
-                placeholder="modify your email"
+                placeholder=""
               />
             </label>
           </div>
           <div>
             <label class="text-green-800 font-light text-xl">
-              Change your password:
+              Schimba-ti parola:
               <input
                 class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
                 type="password"
                 name="password"
                 id="modifyPassword"
-                placeholder="modify your password"
+                placeholder=""
               />
             </label>
           </div>
           <div>
             <label class="text-green-800 font-light text-xl">
-              Confirm your password:
+              Confirma parola:
               <input
                 class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
                 type="password"
                 name=""
                 id="modifyPasswordConfirm"
-                placeholder="confirm your password"
+                placeholder=""
               />
             </label>
           </div>
@@ -79,7 +79,7 @@
         <!--Profile avatar, info, and edit button-->
         <div>
           <!--Profile name-->
-          <h1 class="font-extralight text-3xl text-green-900 text-center" id="userName">User Name</h1>
+          <h1 class="font-extralight text-3xl text-green-900 text-center" id="userName"></h1>
         </div>
         <div>
           <!--Profile Image-->
@@ -90,7 +90,7 @@
           <p id="userEmail"></p>
           <p class="hover:text-green-500 text-green-600 font-normal"><a href="" id="completedProblems"></a></p>
           <p class="hover:text-green-500"><a href="" id="Ranking"></a></p>
-          <button class="{{#unless isSelf}} hidden {{/unless}} text-lg hover:text-green-500 text-green-600 font-normal" id="editUser">Edit user<img class="inline" width="15" src="/img/edit.png" /></button>
+          <button class="{{#unless isSelf}} hidden {{/unless}} text-lg hover:text-green-500 text-green-600 font-normal" id="editUser">Editeaza profil<img class="inline" width="15" src="/img/edit.png" /></button>
         </div>
       </div>
       <div class="flex flex-col flex-grow space-y-4 p-4 bg-green-50 shadow-inner rounded-lg" id="solutionFeed">

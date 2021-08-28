@@ -100,7 +100,7 @@ fetch(`/users/${id}/solutions/data` + window.location.search).then(
 searchButton.addEventListener('click', async (e) => {
   e.preventDefault()
   const data = {
-    search: searchText.value ? searchText.value : '',
+    search: searchText.value ? searchText.value : '', // Radio value
     category: document.querySelector('input[name="category"]:checked')
       ? document.querySelector('input[name="category"]:checked').value
       : '',

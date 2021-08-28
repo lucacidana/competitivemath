@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -18,17 +18,17 @@
 
       <div class="p-5 self-start bg-green-50 shadow-inner rounded-lg">
         <!--Search student-->
-        <h1 class="mb-5 font-extralight text-3xl text-green-900">Search students</h1>
+        <h1 class="mb-5 font-extralight text-3xl text-green-900">Cauta studenti</h1>
         <input
           class="font-light text-lg text-green-900 border border-transparent rounded focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
           type="text"
           id="searchStudent"
-          placeholder="Write the student's name"
+          placeholder="Scrie numele studentului"
         />
         <div>
           <!--Buttons-->
-          <button class="inline block mt-2 px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="searchStudentButton">Search</button>
-          <button class="inline block mt-2 px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="addStudentButton">Add student</button>
+          <button class="inline block mt-2 px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="searchStudentButton">Cauta</button>
+          <button class="inline block mt-2 px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="addStudentButton">Adauga student</button>
         </div>
       </div>
 
@@ -301,16 +301,16 @@
       <!--Modal form-->
 
       <div class="self-center bg-green-50 rounded-lg p-3 ring-2 ring-green-200 shadow-inner">
-        <h1 class="mb-5 font-extralight text-3xl text-green-900">Add student</h1>
+        <h1 class="mb-5 font-extralight text-3xl text-green-900">Adauga student</h1>
         <form action="/users/me/students" id="addStudentForm" method="POST" enctype="multipart/form-data">
           <input
             class="w-80 font-light text-lg text-green-900 border border-transparent rounded focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent placeholder-green-500 placeholder-opacity-50 focus:placeholder-opacity-25"
             type="email"
             name="email"
             id="addStudentEmail"
-            placeholder="Write the student's email"
+            placeholder="Scrie email-ul studentului"
           />
-          <button class="inline mt-2 block px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" type="submit">Add</button>
+          <button class="inline mt-2 block px-2 text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" type="submit">Adauga</button>
         </form>
         <button class="mt-2 block px-2 text-white rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50" id="cancelAddStudent">Cancel</button>
         <p class="inline font-light text-red-500 text-lg" id="addStudentError">{{error}}</p>

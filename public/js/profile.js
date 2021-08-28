@@ -243,6 +243,6 @@ document
       })
       .catch((error) => {
         errorMessage.style.display = 'inline'
-        errorMessage.textContent = 'Poza selectata trebuie sa fie > 1mb'
+        errorMessage.textContent = 'Poza selectata trebuie sa fie < 1mb'
       })
   })

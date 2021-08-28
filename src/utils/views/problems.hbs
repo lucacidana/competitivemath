@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Problems</title>
+      <title>Probleme</title>
       <link rel="stylesheet" href="/css/styles.css" />
       <link rel="icon" href="/img/icon.png">
    </head>
@@ -14,16 +14,16 @@
          <!--Search form-->
          <div class="self-start bg-green-50 ml-40 mt-12 p-2 rounded-lg shadow-inner">
             <div>
-               <h1 class="ml-4 font-extralight text-3xl text-green-900">Search for problems</h1>
+               <h1 class="ml-4 font-extralight text-3xl text-green-900">Cauta probleme</h1>
             </div>
             <form class="flex flex-col" action="" method="">
                <div class="">
                   <input class="mt-6 px-1 w-full border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                     type="text" name="search" placeholder="Search problems">
+                     type="text" name="search" placeholder="Cauta probleme">
                </div>
                <div class="mt-1 self-start">
                   <p class="bg-white border border-transparent rounded-lg px-1 text-green-700">
-                     Difficulty: 
+                     Dificultate: 
                      <label class="ml-1 hover:text-green-500" id="searchLabelUsor"><input class="hidden" type="radio" value="Usor" name="difficulty">Usor</label>
                      <label class="ml-1 hover:text-green-500" id="searchLabelMediu"><input class="hidden" type="radio" value="Mediu" name="difficulty">Mediu</label>
                      <label class="ml-1 hover:text-green-500" id="searchLabelDificil"><input class="hidden" type="radio" value="Dificil" name="difficulty">Dificil</label>
@@ -31,22 +31,22 @@
                </div>
                <div class="mt-1 self-start">
                   <p class="bg-white border border-transparent rounded-lg px-1 text-green-700">
-                     Category: 
+                     Categorie: 
                      <label class="ml-1 hover:text-green-500" id="searchLabelAnaliza"><input class="hidden" type="radio" value="Analiza" name="category">Analiza</label>
                      <label class="ml-1 hover:text-green-500" id="searchLabelAlgebra"><input class="hidden" type="radio" value="Algebra" name="category">Algebra</label>
                      <label class="ml-1 hover:text-green-500" id="searchLabelGeometrie"><input class="hidden" type="radio" value="Geometrie" name="category">Geometrie</label>
                </div>
                <div>
                   </p> <button class="text-white ml-1 mt-2 px-1 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
-                     id="clearButton">Clear</button>
+                     id="clearButton">Reset</button>
                   <button class="text-white ml-1 mt-2 px-1 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-                     type="submit">Search</button>
+                     type="submit">Cauta</button>
                </div>
             </form>
             {{#if Professor}}
             <div>
                <button class="text-white ml-1 mt-2 px-1 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-                  id="addProblemButton">Add problem</button>
+                  id="addProblemButton">Adauga problema</button>
             </div>
             {{/if}}
          </div>
@@ -57,37 +57,37 @@
       <div class="{{#unless error}}hidden{{/unless}} fixed inset-y-20 inset-x-1/4 flex flex-col" id="addProblemForm">
          <!--Modal Box for adding problem-->
          <div class="self-center bg-green-50 rounded-lg p-3 ring-2 ring-green-200 shadow-inner">
-            <h2 class="mt-4 font-extralight text-3xl text-green-800">Add problem</h2>
+            <h2 class="mt-4 font-extralight text-3xl text-green-800">Adauga problema</h2>
             <form class="mt-12 space-y-1" action="/problems" method="POST" enctype="multipart/form-data" id="submitProblem">
                <div>
-                  <label class="text-green-800 font-light text-2xl">Title:
+                  <label class="text-green-800 font-light text-2xl">Titlu:
                   <input class="ml-5 w-1/3 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                     type="text" name="title" id="addTitle" placeholder="Introduce a descriptive title" required>
+                     type="text" name="title" id="addTitle" placeholder="Adauga un titlu descriptiv" required>
                   </label>
                </div>
                <div class="">
-                  <h2 class="text-green-800 font-light text-2xl">Description:</h2>
+                  <h2 class="text-green-800 font-light text-2xl">Descriere:</h2>
                   <textarea class="resize-none box-border w-full border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
                      type="textarea" name="description"
-                     id="addDesc" rows="7" placeholder="Write the problem's description" required></textarea>
+                     id="addDesc" rows="7" placeholder="Scrie descrierea problemei" required></textarea>
                </div>
                <div class="">
-                  <h2 class="inline text-green-800 font-light text-lg">Category:</h2>
+                  <h2 class="inline text-green-800 font-light text-lg">Categorie:</h2>
                   <label class="inline font-light hover:text-green-500" id="addLabelAlgebra"><input class="hidden" type="radio" name="category" value="Algebra" required> Algebra</label>
                   <label class="inline font-light hover:text-green-500" id="addLabelAnaliza"><input class="hidden" type="radio" name="category" value="Analiza" required> Analiza</label>
                   <label class="inline font-light hover:text-green-500" id="addLabelGeometrie"><input class="hidden" type="radio" name="category" value="Geometrie" required> Geometrie</label>
                </div>
                <div class="">
-                  <h2 class="inline text-green-800 font-light text-lg">Difficulty:</h2>
+                  <h2 class="inline text-green-800 font-light text-lg">Dificultate:</h2>
                   <label class="inline font-light hover:text-green-500" id="addLabelUsor"><input class="hidden" type="radio" name="difficulty" value="Usor" required> Usor</label>
                   <label class="inline font-light hover:text-green-500" id="addLabelMediu"><input class="hidden" type="radio" name="difficulty" value="Mediu" required> Mediu</label>
                   <label class="inline font-light hover:text-green-500" id="addLabelDificil"><input class="hidden"type="radio" name="difficulty" value="Dificil" required> Dificil</label>
                </div>
                <button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-                  type="submit">Add</button>
+                  type="submit">Adauga</button>
                <button class="text-white px-2 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
-                  id="closeAddProblem">Close</button>
-               <p class="inline font-light text-red-500 text-lg"id="addProblemError">{{#if uniqueError}}Title or description are already in use{{/if}}</p>
+                  id="closeAddProblem">Cancel</button>
+               <p class="inline font-light text-red-500 text-lg"id="addProblemError">{{#if uniqueError}}Titlul sau descrierea sunt deja in uz{{/if}}</p>
             </form>
          </div>
       </div>
