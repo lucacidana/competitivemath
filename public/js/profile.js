@@ -198,6 +198,16 @@ document.querySelector('#editUser').addEventListener('click', async (e) => {
   document.querySelector('#modalForm').style.display = 'flex'
 })
 
+document.querySelector('#submitForm').addEventListener('click', async (e) => {
+  if (
+    document.querySelector('#modifyPassword').value !==
+    document.querySelector('#modifyPasswordConfirm').value
+  ) {
+    e.preventDefault()
+    document.querySelector('#passwordError').textContent = 'Parolele nu coincid'
+  }
+})
+
 document.querySelector('#cancelForm').addEventListener('click', async (e) => {
   e.preventDefault()
   window.location.href = window.location.href
