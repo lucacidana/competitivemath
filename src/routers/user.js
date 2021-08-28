@@ -41,12 +41,6 @@ router.post('/users/login', upload.fields([]), async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password)
     const token = await user.generateAuthToken()
-    // res.send({
-    //   name: user.name,
-    //   email: user.email,
-    //   solutions: user.solvedProblems,
-    //   token,
-    // })
 
     res.cookie('Authorization', token, { maxAge: 3600000 })
     res.redirect('/users/me') //TEST
@@ -60,27 +54,12 @@ router.post('/users/login', upload.fields([]), async (req, res) => {
 router.post('/users/logout', auth, async (req, res) => {
   // Logout
   try {
-    // req.user.tokens = req.user.tokens.filter((token) => {
-    //   return token.token !== req.token
-    // })
     res.clearCookie('Authorization')
-    res.redirect('/')
+    res.send()
   } catch (e) {
     res.status(500).send()
   }
 })
-
-// router.post('/users/logoutAll', auth, async (req, res) => {
-//   // Logout from all places
-//   try {
-//     req.user.tokens = []
-
-//     await req.user.save()
-//     res.send()
-//   } catch (e) {
-//     res.status(500).send()
-//   }
-// })
 
 router.post(
   '/users/me/students',
@@ -195,8 +174,6 @@ router.delete('/users/me', auth, async (req, res) => {
   }
 })
 
-router.delete('/users/me/students/:id')
-
 // Begin PATCH methods
 router.post('/users/me', [upload.fields([]), auth], async (req, res) => {
   const updates = Object.keys(req.body)
@@ -273,6 +250,7 @@ router.post(
             solution.solution = req.body.solution
             solution.grading.grade = null
             solution.solutionFiles = req.body.images
+            solution.updatedAt = Date.now()
           }
         })
 
@@ -333,50 +311,124 @@ router.get('/users/:id', auth, async (req, res) => {
 router.get('/users/:id/data', auth, async (req, res) => {
   if (req.params.id === 'me') {
     try {
-      res.send(req.user)
+      let completedProblems = req.user.solvedProblems.length
+      if (!req.user.isProfessor) {
+        // Students will be greeted with their last 10 most recent solutions
+        req.user.solvedProblems.sort((a, b) => b.updatedAt - a.updatedAt)
+        req.user.solvedProblems = req.user.solvedProblems.slice(0, 10)
+
+        res.send({ user: req.user, problem: undefined, completedProblems })
+      } else {
+        // Professors will be greeted with the last 10 most recent problems
+        const problems = await Problem.find(
+          {},
+          'title difficulty category description',
+          {
+            limit: 10,
+          }
+        ).sort({ updatedAt: 'desc' })
+        res.send({ user: req.user, problems, completedProblems })
+      }
     } catch (e) {
       res.status(404).send()
     }
   }
   try {
-    const user = await User.findById(req.params.id) //Limit access to data
+    // Public profile
+    const user = await User.findById(req.params.id)
 
     if (!user) {
       throw new Error()
     }
-    res.send(user)
+
+    let completedProblems = user.solvedProblems.length
+    user.solvedProblems.sort((a, b) => b.updatedAt - a.updatedAt)
+    user.solvedProblems = user.solvedProblems.slice(0, 10)
+
+    if (req.user.isProfessor) {
+      req.user.students.forEach((student) => {
+        if (student.studentId == req.params.id) {
+          user.updatedAt = null
+          user.createdAt = null
+          user.students = null
+          user.__v = null
+          res.send({ user, problem: undefined, completedProblems })
+        }
+      })
+    }
+    user.updatedAt = null
+    user.createdAt = null
+    user.students = null
+    user.__v = null
+    user.solvedProblems.forEach((solution) => {
+      solution.solution = null
+      solution.solutionFiles = null
+      solution.grading = null
+    })
+    res.send({ user, problem: undefined, completedProblems })
   } catch (e) {
     res.status(404).send()
   }
 })
 
-router.get('/users/me/solutions', auth, async (req, res) => {
+router.get('/users/:id/solutions', auth, async (req, res) => {
+  res.render('solutions', {
+    Professor: req.user.isProfessor,
+  })
+})
+
+router.get('/users/:id/solutions/data', auth, async (req, res) => {
   // GET user's solutions
   try {
-    const result = req.user.solvedProblems.slice(
+    let user = ''
+    if (req.params.id === 'me') {
+      user = req.user
+    } else {
+      user = await User.findById(req.params.id)
+    }
+    let Search = req.query.search ? req.query.search.replace('+', ' ') : ''
+
+    user.solvedProblems = user.solvedProblems.filter((solution) =>
+      solution.title.includes(Search)
+    )
+
+    user.solvedProblems = user.solvedProblems.slice(
       // Fetch the next 10
       req.query.skip ? req.query.skip : 0,
       req.query.skip ? parseInt(req.query.skip) + 10 : 10
     )
-
-    if (result) {
+    if (user.solvedProblems) {
       if (req.query.category) {
         // Filter by 'category'
-        result = result.filter(
+        user.solvedProblems = user.solvedProblems.filter(
           (solution) => solution.category === req.query.category
         )
       }
 
       if (req.query.difficulty) {
         // Filter by 'difficulty'
-        result = result.filter(
+        user.solvedProblems = user.solvedProblems.filter(
           (solution) => solution.difficulty === req.query.difficulty
         )
       }
 
-      res.render('solutions', {
-        Professor: req.user.isProfessor,
-      })
+      let isStudent = false
+      if (req.user.isProfessor && req.params.id !== 'me') {
+        req.user.students.forEach((student) => {
+          if (student.studentId == req.params.id) {
+            isStudent = true
+          }
+        })
+      }
+
+      if (!isStudent && req.params.id !== 'me') {
+        user.solvedProblems.forEach((solution) => {
+          solution.solution = null
+          solution.solutionFiles = null
+          solution.grading = null
+        })
+      }
+      res.send(user.solvedProblems)
     } else {
       res.status(404).send({ error: 'No solutions found' })
     }
@@ -420,21 +472,6 @@ router.get('/users', auth, async (req, res) => {
     }
   }
 })
-
-// router.get('/users/me/solutions/:id', auth, async (req, res) => {
-//   // Get solutions for a specific problem
-//   try {
-//     const solutions = await req.user.getSolvedProblem(req.params.id)
-
-//     if (solutions.length === 0) {
-//       res.status(404).send()
-//     } else {
-//       res.send(solutions)
-//     }
-//   } catch (e) {
-//     res.status(500).send()
-//   }
-// })
 
 router.get('/users/me/studentList', auth, async (req, res) => {
   if (req.user.isProfessor) {

@@ -1,4 +1,4 @@
-const id = window.location.pathname.slice(10)
+const id = window.location.pathname.slice(10) // Fetch problem & solution
 fetch('/problemList/' + id).then((response) => {
   response
     .json()
@@ -134,6 +134,7 @@ document
     e.preventDefault()
     let URL = '/users/me/solutions/' + id
     fetch(URL, {
+      // Modify solution
       method: 'POST',
       body: new FormData(document.querySelector('#modifySolutionAction')),
     }).then((response) => {
@@ -158,6 +159,7 @@ document
     e.preventDefault()
     let URL = '/problems/' + id
     fetch(URL, {
+      // Add solution
       method: 'POST',
       body: new FormData(document.querySelector('#addSolutionAction')),
     }).then((response) => {

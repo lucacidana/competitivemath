@@ -1,20 +1,67 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My solutions</title>
-    <link rel='stylesheet' href='/css/styles.css' />
-    <link rel='icon' href='/img/icon.png' />
-</head>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="icon" href="/img/icon.png" />
+  </head>
+  {{>header this}}
+  <body class="mt-12 ml-8 mb-8 space-y-4">
+    <div class="flex flex-row">
+      <!--Encompassing div-->
+      <div class="flex flex-col space-y-2 bg-green-50 p-2 shadow-inner rounded-lg">
+        <!--Search form-->
+        <div class="flex font-extralight text-3xl text-green-900">
+          <h1>Cautare solutii</h1>
+        </div>
+        <div class="flex">
+          <input type="text" id="searchText" placeholder="Cauta solutii" />
+        </div>
+        <div class="flex">
+          <span>
+            <h2 class="inline text-green-800 font-light text-lg">Category:</h2>
+            <label class="font-light hover:text-green-500" id="searchLabelAlgebra"><input class="hidden" type="radio" name="category" value="Algebra" required /> Algebra</label>
+            <label class="font-light hover:text-green-500" id="searchLabelAnaliza"><input class="hidden" type="radio" name="category" value="Analiza" required /> Analiza</label>
+            <label class="font-light hover:text-green-500" id="searchLabelGeometrie"><input class="hidden" type="radio" name="category" value="Geometrie" required /> Geometrie</label>
+          </span>
+        </div>
+        <div class="flex">
+          <span>
+            <h2 class="inline text-green-800 font-light text-lg">Difficulty:</h2>
+            <label class="font-light hover:text-green-500" id="searchLabelUsor"><input class="hidden" type="radio" name="difficulty" value="Usor" required /> Usor</label>
+            <label class="font-light hover:text-green-500" id="searchLabelMediu"><input class="hidden" type="radio" name="difficulty" value="Mediu" required /> Mediu</label>
+            <label class="font-light hover:text-green-500" id="searchLabelDificil"><input class="hidden" type="radio" name="difficulty" value="Dificil" required /> Dificil</label>
+          </span>
+        </div>
+        <div class="inline-flex space-x-4">
+          <div class="flex">
+            <button class="text-white px-1 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+						id="searchButton">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<body class="mb-5">
-    {{>header this}}
-    
+    <div class="flex flex-row">
+      <!--Encompassing div-->
+      <div class="flex flex-col bg-green-50 p-2 shadow-inner rounded-lg space-y-2" id="solutionsDiv">
+        <p class="hidden font-light text-red-500 text-lg" id="errorMessage"></p>
+      </div>
+    </div>
+    <div class="flex flex-row space-x-2 place-content-center">
+          <div class="flex">
+            <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+             id="navigateLeft"><img src="/img/navigateLeft.png" alt="" width="30"></button>
+          </div>
+          <div class="flex">
+            <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+             id="navigateRight"><img src="/img/navigateRight.png" alt="" width="30"></button>
+          </div>
+        </div>
     <script src="/js/solutions.js"></script>
-    {{>footer}}
-</body>
-
+  </body>
+  {{>footer}}
 </html>

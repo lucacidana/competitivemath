@@ -81,6 +81,10 @@ const userSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
+        updatedAt: {
+          type: Date,
+          default: Date.now,
+        },
         grading: [
           {
             grade: {

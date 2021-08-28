@@ -147,6 +147,7 @@ router.get('/problems', async (req, res) => {
 })
 
 router.get('/problemList', async (req, res) => {
+  // ProblemList is used to fetch a problem list
   try {
     let Search = req.query.search ? req.query.search : ''
     Search = Search.replace('+', ' ')
@@ -174,26 +175,9 @@ router.get('/problemList', async (req, res) => {
   }
 })
 
-router.get('/problems/:id', async (req, res) => {
-  let decoded = ''
-  let Professor = ''
-
-  const token = req.cookies['Authorization'] //.replace('Bearer ', '') // Verify if a user is logged in or not (auth middleware throws error)
-  if (token !== undefined) {
-    decoded = jwt.verify(token, process.env.JWT_SECRET)
-  }
-  const user = await User.findOne({ password: decoded.password }) //, 'tokens.token': token })
-  Professor = user ? user.isProfessor : ''
-
-  res.render('problem', {
-    Professor,
-    loggedIn: user ? true : false,
-  })
-})
-
 router.get('/problemList/:id', async (req, res) => {
+  // ProblemList/:id is used to fetch an individual problem and it's solution
   // Getting a problem ID can be done publicly, without auth
-
   try {
     let decoded = ''
     const problem = await Problem.findById(req.params.id)
@@ -219,6 +203,42 @@ router.get('/problemList/:id', async (req, res) => {
     }
   } catch (e) {
     res.status(404).send()
+  }
+})
+
+router.get('/problems/:id', async (req, res) => {
+  let decoded = ''
+  let Professor = ''
+
+  const token = req.cookies['Authorization'] //.replace('Bearer ', '') // Verify if a user is logged in or not (auth middleware throws error)
+  if (token !== undefined) {
+    decoded = jwt.verify(token, process.env.JWT_SECRET)
+  }
+  const user = await User.findOne({ password: decoded.password }) //, 'tokens.token': token })
+  Professor = user ? user.isProfessor : ''
+
+  res.render('problem', {
+    Professor,
+    loggedIn: user ? true : false,
+  })
+})
+
+router.get('/problems/:id/:studId', auth, async (req, res) => {
+  if (req.user.isProfessor) {
+    if (
+      req.user.students.some(
+        (student) => student.studentId == req.params.studId
+      )
+    ) {
+      res.render('problem', {
+        Professor: true,
+        loggedIn: true,
+      })
+    } else {
+      res.redirect(`/problems/${req.params.id}`)
+    }
+  } else {
+    res.redirect(`/problems/${req.params.id}`)
   }
 })
 

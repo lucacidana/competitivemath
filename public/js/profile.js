@@ -5,31 +5,173 @@ const fetchURL = '/users/' + window.location.href.split('/')[4] + '/data'
 
 fetch(fetchURL)
   .then((response) => {
-    response.json().then((data) => {
-      console.log(data)
+    if (response.status === 404) {
+      document.querySelector('#userName').textContent = 'Nu s-a gasit studentul'
+    }
+    response
+      .json()
+      .then((data) => {
+        const { user, problems, completedProblems } = data
+        let i = 1
 
-      if (data.avatar) {
-        document.querySelector('#userPhoto2').src =
-          'data:image/jpeg;base64,' + data.avatar
+        if (!problems) {
+          // If we are a student, we should only see recent solutions
+          document.querySelector('#feedHeading').textContent = 'Solutii recente'
+          user.solvedProblems.forEach((solution) => {
+            let content = document.createElement('div')
+            content.id = `solution${i}`
+            content.className = 'mt-6 p-2 bg-white rounded-lg shadow'
+            content.innerHTML = `
+	<!--Structure of a problem entry-->
+	<a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link${i}"></a>
+	<span class="float-right space-x-1">
+		 <!--Example of float in div, inline items with span, spacing within child elems-->
+		 <span class="p-0.5 border border-transparent text-white font-light rounded" id="category${i}"></span>
+		 <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty${i}"></span>
+		 <span class="hidden p-0.5 border border-transparent text-white bg-gray-600 font-light rounded" id="grade${i}"></span>
+	</span>
+	`
+            document.getElementById('solutionFeed').appendChild(content)
 
-        document.querySelector('#userPhoto').src =
-          'data:image/jpeg;base64,' + data.avatar
-      } else {
-        document.querySelector('#userPhoto2').src =
-          '/img/avatar_placeholder.png'
+            document
+              .querySelector(`#link${i}`)
+              .setAttribute('href', `/problems/${solution.problemId}`)
+            document.querySelector(`#link${i}`).textContent = solution.title
+            document.querySelector(`#category${i}`).textContent =
+              solution.category
+            document.querySelector(`#difficulty${i}`).textContent =
+              solution.difficulty
+            if (solution.grading) {
+              document.querySelector(`#grade${i}`).textContent =
+                solution.grading.grade
+            }
+            if (solution.category === 'Algebra') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-blue-400')
+            } else if (solution.category === 'Analiza') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-red-400')
+            } else {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-pink-400')
+            }
 
-        document.querySelector('#userPhoto').src = '/img/avatar_placeholder.png'
-      }
+            if (solution.difficulty === 'Usor') {
+              document
+                .querySelector(`#difficulty${i}`)
+                .classList.add('bg-green-400')
+            } else if (solution.difficulty === 'Mediu') {
+              document
+                .querySelector(`#difficulty${i}`)
+                .classList.add('bg-green-500')
+            } else {
+              document
+                .querySelector(`#difficulty${i}`)
+                .classList.add('bg-green-600')
+            }
 
-      document.querySelector('#userName').textContent = data.name
-      document.querySelector('#userEmail').textContent = data.email
-      document.querySelector('#completedProblems').textContent =
-        'Completed problems: ' + data.solvedProblems.length
+            if (solution.grading) {
+              if (solution.grading.grade) {
+                document.querySelector(`grade${i}`).style.display = 'block'
+              }
+            }
 
-      if (data.isProfessor) {
-        document.querySelector('#userDiv').classList.add('ring-2')
-      }
-    })
+            i++
+          })
+        } else {
+          document.querySelector('#feedHeading').textContent =
+            'Probleme recente'
+          problems.forEach((problem) => {
+            let content = document.createElement('div')
+            content.id = `problem${i}`
+            content.className = 'mt-6 p-2 bg-white rounded-lg shadow'
+            content.innerHTML = `
+	<!--Structure of a problem entry-->
+	<a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link${i}"></a>
+	<span class="float-right space-x-1">
+		 <!--Example of float in div, inline items with span, spacing within child elems-->
+		 <p class="inline font-light truncate mr-6" id="short${i}"></p>
+		 <span class="p-0.5 border border-transparent text-white font-light rounded" id="category${i}"></span>
+		 <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty${i}"></span>
+	</span>
+	`
+            document.getElementById('solutionFeed').appendChild(content)
+
+            document
+              .querySelector(`#link${i}`)
+              .setAttribute('href', `/problems/${problem._id}`)
+            document.querySelector(`#link${i}`).textContent = problem.title
+            document.querySelector(`#category${i}`).textContent =
+              problem.category
+            document.querySelector(`#difficulty${i}`).textContent =
+              problem.difficulty
+            document.querySelector(`#short${i}`).textContent =
+              problem.description.slice(0, 50) + '...'
+
+            if (problem.category === 'Algebra') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-blue-400')
+            } else if (problem.category === 'Analiza') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-red-400')
+            } else {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-pink-400')
+            }
+
+            if (problem.difficulty === 'Usor') {
+              document
+                .querySelector(`#difficulty${i}`)
+                .classList.add('bg-green-400')
+            } else if (problem.difficulty === 'Mediu') {
+              document
+                .querySelector(`#difficulty${i}`)
+                .classList.add('bg-green-500')
+            } else {
+              document
+                .querySelector(`#difficulty${i}`)
+                .classList.add('bg-green-600')
+            }
+            i++
+          })
+        }
+
+        if (user.avatar) {
+          document.querySelector('#userPhoto2').src =
+            'data:image/jpeg;base64,' + user.avatar
+
+          document.querySelector('#userPhoto').src =
+            'data:image/jpeg;base64,' + user.avatar
+        } else {
+          document.querySelector('#userPhoto2').src =
+            '/img/avatar_placeholder.png'
+
+          document.querySelector('#userPhoto').src =
+            '/img/avatar_placeholder.png'
+        }
+        console.log(user)
+        document.querySelector('#userName').textContent = user.name
+        document.querySelector('#userEmail').textContent = user.email
+        document.querySelector('#completedProblems').textContent =
+          'Probleme rezolvate: ' + completedProblems
+        document
+          .querySelector('#completedProblems')
+          .setAttribute(
+            'href',
+            `/users/${window.location.href.split('/')[4]}/solutions`
+          )
+
+        if (user.isProfessor) {
+          document.querySelector('#userDiv').classList.add('ring-2')
+        }
+      })
+      .catch((error) => {})
   })
   .catch((error) => {
     console.log(error)

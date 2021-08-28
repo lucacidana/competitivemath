@@ -77,7 +77,7 @@ document.querySelector('#logoutButton').addEventListener('click', async (e) => {
   fetch('/users/logout', {
     method: 'POST',
   }).then(() => {
-    window.location.href = '/'
+    window.location.href = '/users/login'
   })
 })
 

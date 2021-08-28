@@ -1,215 +1,217 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Problems</title>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <link rel="icon" href="/img/icon.png">
-</head>
-
-<body>
-
-    {{>header this}}
-    <div class="flex"> <!--Search form-->
-        <div class="self-start bg-green-50 ml-40 mt-12 p-2 rounded-lg shadow-inner">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Problems</title>
+      <link rel="stylesheet" href="/css/styles.css" />
+      <link rel="icon" href="/img/icon.png">
+   </head>
+   <body class="mb-8">
+      {{>header this}}
+      <div class="flex">
+         <!--Search form-->
+         <div class="self-start bg-green-50 ml-40 mt-12 p-2 rounded-lg shadow-inner">
             <div>
-            <h1 class="ml-4 font-extralight text-3xl text-green-900">Search for problems</h1>
-        </div>
-        <form class="flex flex-col" action="" method="">
-            <div class="">
-                <input class="mt-6 px-1 w-full border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                type="text" name="search" placeholder="Search problems">
+               <h1 class="ml-4 font-extralight text-3xl text-green-900">Search for problems</h1>
             </div>
-            <div class="mt-1 self-start">
-                <p class="bg-white border border-transparent rounded-lg px-1 text-green-700">
-                Difficulty: 
-                <label class="ml-1 hover:text-green-500" id="searchLabelUsor"><input class="hidden" type="radio" value="Usor" name="difficulty">Usor</label>
-                <label class="ml-1 hover:text-green-500" id="searchLabelMediu"><input class="hidden" type="radio" value="Mediu" name="difficulty">Mediu</label>
-                <label class="ml-1 hover:text-green-500" id="searchLabelDificil"><input class="hidden" type="radio" value="Dificil" name="difficulty">Dificil</label>
-                </p>
-            </div>
-            <div class="mt-1 self-start">
-                <p class="bg-white border border-transparent rounded-lg px-1 text-green-700">
-                Category: 
-                <label class="ml-1 hover:text-green-500" id="searchLabelAnaliza"><input class="hidden" type="radio" value="Analiza" name="category">Analiza</label>
-                <label class="ml-1 hover:text-green-500" id="searchLabelAlgebra"><input class="hidden" type="radio" value="Algebra" name="category">Algebra</label>
-                <label class="ml-1 hover:text-green-500" id="searchLabelGeometrie"><input class="hidden" type="radio" value="Geometrie" name="category">Geometrie</label>
-            </div>
+            <form class="flex flex-col" action="" method="">
+               <div class="">
+                  <input class="mt-6 px-1 w-full border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+                     type="text" name="search" placeholder="Search problems">
+               </div>
+               <div class="mt-1 self-start">
+                  <p class="bg-white border border-transparent rounded-lg px-1 text-green-700">
+                     Difficulty: 
+                     <label class="ml-1 hover:text-green-500" id="searchLabelUsor"><input class="hidden" type="radio" value="Usor" name="difficulty">Usor</label>
+                     <label class="ml-1 hover:text-green-500" id="searchLabelMediu"><input class="hidden" type="radio" value="Mediu" name="difficulty">Mediu</label>
+                     <label class="ml-1 hover:text-green-500" id="searchLabelDificil"><input class="hidden" type="radio" value="Dificil" name="difficulty">Dificil</label>
+                  </p>
+               </div>
+               <div class="mt-1 self-start">
+                  <p class="bg-white border border-transparent rounded-lg px-1 text-green-700">
+                     Category: 
+                     <label class="ml-1 hover:text-green-500" id="searchLabelAnaliza"><input class="hidden" type="radio" value="Analiza" name="category">Analiza</label>
+                     <label class="ml-1 hover:text-green-500" id="searchLabelAlgebra"><input class="hidden" type="radio" value="Algebra" name="category">Algebra</label>
+                     <label class="ml-1 hover:text-green-500" id="searchLabelGeometrie"><input class="hidden" type="radio" value="Geometrie" name="category">Geometrie</label>
+               </div>
+               <div>
+                  </p> <button class="text-white ml-1 mt-2 px-1 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+                     id="clearButton">Clear</button>
+                  <button class="text-white ml-1 mt-2 px-1 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                     type="submit">Search</button>
+               </div>
+            </form>
+            {{#if Professor}}
             <div>
-                </p> <button class="text-white ml-1 mt-2 px-1 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
-                id="clearButton">Clear</button>
-                <button class="text-white ml-1 mt-2 px-1 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-                type="submit">Search</button>
+               <button class="text-white ml-1 mt-2 px-1 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                  id="addProblemButton">Add problem</button>
             </div>
-        </form>
-        {{#if Professor}}
-            <div>
-                <button class="text-white ml-1 mt-2 px-1 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-                id="addProblemButton">Add problem</button>
-            </div>
-        {{/if}}
-        </div>
-    </div>
-
-    <div class="{{#unless uniqueError}}hidden{{/unless}} fixed top-0 w-full h-full bg-gray-100 bg-opacity-50" id="addProblemModal"> <!--Modal background-->
-    </div>
-
-    <div class="{{#unless error}}hidden{{/unless}} absolute inset-y-20 inset-x-1/4 flex flex-col" id="addProblemForm"> <!--Modal Box for adding problem-->
-
-            <div class="self-center bg-green-50 rounded-lg p-3 ring-2 ring-green-200 shadow-inner">
-
-                <h2 class="mt-4 font-extralight text-3xl text-green-800">Add problem</h2>
-
-                <form class="mt-12 space-y-1" action="/problems" method="POST" enctype="multipart/form-data" id="submitProblem">
-                    <div>
-                        <label class="text-green-800 font-light text-2xl">Title:
-                            <input class="ml-5 w-1/3 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                            type="text" name="title" id="addTitle" placeholder="Introduce a descriptive title" required>
-                        </label>
-                    </div>
-                    <div class="">
-                        <h2 class="text-green-800 font-light text-2xl">Description:</h2>
-                        <textarea class="resize-none box-border w-full border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                         type="textarea" name="description"
-                        id="addDesc" rows="7" placeholder="Write the problem's description" required></textarea>
-                    </div>
-                    <div class="">
-                        <h2 class="inline text-green-800 font-light text-lg">Category:</h2>
-                            <label class="inline font-light hover:text-green-500" id="addLabelAlgebra"><input class="hidden" type="radio" name="category" value="Algebra" required> Algebra</label>
-                            <label class="inline font-light hover:text-green-500" id="addLabelAnaliza"><input class="hidden" type="radio" name="category" value="Analiza" required> Analiza</label>
-                            <label class="inline font-light hover:text-green-500" id="addLabelGeometrie"><input class="hidden" type="radio" name="category" value="Geometrie" required> Geometrie</label>
-                    </div>
-                    <div class="">
-                        <h2 class="inline text-green-800 font-light text-lg">Difficulty:</h2>
-                            <label class="inline font-light hover:text-green-500" id="addLabelUsor"><input class="hidden" type="radio" name="difficulty" value="Usor" required> Usor</label>
-                            <label class="inline font-light hover:text-green-500" id="addLabelMediu"><input class="hidden" type="radio" name="difficulty" value="Mediu" required> Mediu</label>
-                            <label class="inline font-light hover:text-green-500" id="addLabelDificil"><input class="hidden"type="radio" name="difficulty" value="Dificil" required> Dificil</label>
-                    </div>
-                    <button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-                    type="submit">Add</button>
-                    <button class="text-white px-2 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
-                    id="closeAddProblem">Close</button>
-                    <p class="inline font-light text-red-500 text-lg"id="addProblemError">{{#if uniqueError}}Title or description are already in use{{/if}}</p>
-                </form>
-            </div>
-
-        </div>
-
-    <div class="flex flex-col bg-green-50 rounded-lg shadow-inner ml-40 mt-12 p-6 w-1/2 hidden" id="problemDiv"> <!--Begin problem list div-->
-        <div>
-            <h1 class="font-extralight text-3xl text-green-900" id="problem-heading"></h1> <!--Problem title-->
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem1">    <!--Structure of a problem entry-->
+            {{/if}}
+         </div>
+      </div>
+      <div class="{{#unless uniqueError}}hidden{{/unless}} fixed top-0 w-full h-full bg-gray-100 bg-opacity-50" id="addProblemModal">
+         <!--Modal background-->
+      </div>
+      <div class="{{#unless error}}hidden{{/unless}} fixed inset-y-20 inset-x-1/4 flex flex-col" id="addProblemForm">
+         <!--Modal Box for adding problem-->
+         <div class="self-center bg-green-50 rounded-lg p-3 ring-2 ring-green-200 shadow-inner">
+            <h2 class="mt-4 font-extralight text-3xl text-green-800">Add problem</h2>
+            <form class="mt-12 space-y-1" action="/problems" method="POST" enctype="multipart/form-data" id="submitProblem">
+               <div>
+                  <label class="text-green-800 font-light text-2xl">Title:
+                  <input class="ml-5 w-1/3 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+                     type="text" name="title" id="addTitle" placeholder="Introduce a descriptive title" required>
+                  </label>
+               </div>
+               <div class="">
+                  <h2 class="text-green-800 font-light text-2xl">Description:</h2>
+                  <textarea class="resize-none box-border w-full border border-transparent text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+                     type="textarea" name="description"
+                     id="addDesc" rows="7" placeholder="Write the problem's description" required></textarea>
+               </div>
+               <div class="">
+                  <h2 class="inline text-green-800 font-light text-lg">Category:</h2>
+                  <label class="inline font-light hover:text-green-500" id="addLabelAlgebra"><input class="hidden" type="radio" name="category" value="Algebra" required> Algebra</label>
+                  <label class="inline font-light hover:text-green-500" id="addLabelAnaliza"><input class="hidden" type="radio" name="category" value="Analiza" required> Analiza</label>
+                  <label class="inline font-light hover:text-green-500" id="addLabelGeometrie"><input class="hidden" type="radio" name="category" value="Geometrie" required> Geometrie</label>
+               </div>
+               <div class="">
+                  <h2 class="inline text-green-800 font-light text-lg">Difficulty:</h2>
+                  <label class="inline font-light hover:text-green-500" id="addLabelUsor"><input class="hidden" type="radio" name="difficulty" value="Usor" required> Usor</label>
+                  <label class="inline font-light hover:text-green-500" id="addLabelMediu"><input class="hidden" type="radio" name="difficulty" value="Mediu" required> Mediu</label>
+                  <label class="inline font-light hover:text-green-500" id="addLabelDificil"><input class="hidden"type="radio" name="difficulty" value="Dificil" required> Dificil</label>
+               </div>
+               <button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+                  type="submit">Add</button>
+               <button class="text-white px-2 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+                  id="closeAddProblem">Close</button>
+               <p class="inline font-light text-red-500 text-lg"id="addProblemError">{{#if uniqueError}}Title or description are already in use{{/if}}</p>
+            </form>
+         </div>
+      </div>
+      <div class="flex flex-col bg-green-50 rounded-lg shadow-inner ml-40 mt-12 p-6 w-1/2 hidden" id="problemDiv">
+         <!--Begin problem list div-->
+         <div>
+            <h1 class="font-extralight text-3xl text-green-900" id="problem-heading"></h1>
+            <!--Problem title-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem1">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link1"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category1"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty1"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category1"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty1"></span>
             </span>
             <p class="font-light truncate" id="short1"></p>
-        </div>
-        
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem2">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem2">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link2"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category2"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty2"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category2"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty2"></span>
             </span>
             <p class="font-light truncate" id="short2"></p>
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem3">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem3">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link3"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category3"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty3"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category3"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty3"></span>
             </span>
             <p class="font-light truncate" id="short3"></p>
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem4">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem4">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link4"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category4"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty4"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category4"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty4"></span>
             </span>
             <p class="font-light truncate" id="short4"></p>
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem5">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem5">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link5"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category5"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty5"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category5"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty5"></span>
             </span>
             <p class="font-light truncate" id="short5"></p>
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem6">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem6">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link6"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category6"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty6"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category6"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty6"></span>
             </span>
             <p class="font-light truncate" id="short6"></p>
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem7">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem7">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link7"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category7"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty7"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category7"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty7"></span>
             </span>
             <p class="font-light truncate" id="short7"></p>
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem8">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem8">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link8"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category8"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty8"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category8"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty8"></span>
             </span>
             <p class="font-light truncate" id="short8"></p>
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem9">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem9">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link9"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category9"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty9"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category9"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty9"></span>
             </span>
             <p class="font-light truncate" id="short9"></p>
-        </div>
-
-        <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem10">    <!--Structure of a problem entry-->
+         </div>
+         <div class="mt-6 p-2 bg-white rounded-lg shadow hidden" id="problem10">
+            <!--Structure of a problem entry-->
             <a href="" class="font-light text-lg text-green-800 hover:text-green-500" id="link10"></a>
-            <span class="float-right space-x-1">    <!--Example of float in div, inline items with span, spacing within child elems-->
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="category10"></span>
-                <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty10"></span>
+            <span class="float-right space-x-1">
+               <!--Example of float in div, inline items with span, spacing within child elems-->
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="category10"></span>
+               <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty10"></span>
             </span>
             <p class="font-light truncate" id="short10"></p>
-        </div>
-
-    </div>
-
-    <div class="flex flex-row justify-center items-center space-x-2 mt-8 pb-1"> <!--Navigation buttons-->
-        <div class="">
-            <button class="hidden rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"  id="navigateLeft">
-                <img src="/img/navigateLeft.png" alt="" width="30">
+         </div>
+      </div>
+      <div class="flex flex-row justify-center items-center space-x-2 mt-8 pb-1">
+         <!--Navigation buttons-->
+         <div class="">
+            <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"  id="navigateLeft">
+            <img src="/img/navigateLeft.png" alt="" width="30">
             </button>
-        </div>
-        <div class="">
-            <button class="hidden rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"  id="navigateRight">
-                <img src="/img/navigateRight.png" alt="" width="30">
+         </div>
+         <div class="">
+            <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"  id="navigateRight">
+            <img src="/img/navigateRight.png" alt="" width="30">
             </button>
-        </div>
-    </div>
-    
-<script src="/js/problems.js"></script>
-
-</body>
-{{>footer}}
+         </div>
+      </div>
+      <script src="/js/problems.js"></script>
+   </body>
+   {{>footer}}
 </html>

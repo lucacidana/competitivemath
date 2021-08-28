@@ -1,98 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Profile</title>
-      <link rel="stylesheet" href="/css/styles.css" />
-      <link rel="icon" href="/img/icon.png">
-   </head>
-   <body class="mb-5">
-      <div class="hidden fixed top-0 left-0 w-full h-full bg-gray-100 bg-opacity-75" id="modalBg">
-         <!--Modal bg -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="icon" href="/img/icon.png" />
+  </head>
+  <body class="mb-5">
+    <div class="hidden fixed top-0 left-0 w-full h-full bg-gray-100 bg-opacity-75" id="modalBg">
+      <!--Modal bg -->
+    </div>
+    <div class="hidden flex flex-col justify-center items-center absolute inset-1/4" id="modalForm">
+      <!--Modal form-->
+      <div class="object-contain bg-green-50 shadow rounded-lg space-y-4 p-4">
+        <div>
+          <!--Edit user-->
+          <h1 class="font-extralight text-3xl text-green-900">Edit user</h1>
+        </div>
+        <div>
+          <!--Profile Image-->
+          <img class="rounded-lg" src="" id="userPhoto" />
+        </div>
+        <div class="self-center">
+          <input class="hidden" type="file" name="avatar" accept="image/*" id="uploadPhotoSelector" />
+          <button class="inline font-light text-green-900 hover:text-green-500" id="uploadPhotoButton">Upload profile photo <img class="inline" src="/img/photo.png" /></button>
+          <span class="hidden font-semibold text-red-900" id="errorMessage">test</span>
+        </div>
+        <form class="flex flex-col justify-items-start space-y-4" action="" method="POST" enctype="multipart/form-data">
+          <div>
+            <label class="text-green-800 font-light text-xl">
+              Change your email adress:
+              <input
+                class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+                type="email"
+                name="email"
+                id="modifyEmail"
+                placeholder="modify your email"
+              />
+            </label>
+          </div>
+          <div>
+            <label class="text-green-800 font-light text-xl">
+              Change your password:
+              <input
+                class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+                type="password"
+                name="password"
+                id="modifyPassword"
+                placeholder="modify your password"
+              />
+            </label>
+          </div>
+          <div>
+            <label class="text-green-800 font-light text-xl">
+              Confirm your password:
+              <input
+                class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+                type="password"
+                name=""
+                id="modifyPasswordConfirm"
+                placeholder="confirm your password"
+              />
+            </label>
+          </div>
+          <div class="self-center pb-4">
+            <button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">submit</button>
+            <button class="text-white px-2 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50" id="cancelForm">cancel</button>
+          </div>
+        </form>
       </div>
-      <div class="hidden flex flex-col justify-center items-center absolute inset-1/4" id="modalForm">
-         <!--Modal form-->
-         <div class="object-contain bg-green-50 shadow rounded-lg space-y-4 p-4">
-            <div>
-               <!--Edit user-->
-               <h1 class="font-extralight text-3xl text-green-900">Edit user</h1>
-            </div>
-            <div>
-               <!--Profile Image-->
-               <img class="rounded-lg" src="" id="userPhoto">
-            </div>
-            <div class="self-center">
-               <input class="hidden" type="file" name="avatar" accept="image/*" id="uploadPhotoSelector">
-               <button class="inline font-light text-green-900 hover:text-green-500" id="uploadPhotoButton">Upload profile photo <img class="inline" src="/img/photo.png"></button>
-               <span class="hidden font-semibold text-red-900" id="errorMessage">test</span>
-            </div>
-            <form class="flex flex-col justify-items-start space-y-4" action="" method="POST" enctype="multipart/form-data">
-               <div>
-                  <label class="text-green-800 font-light text-xl">Change your email adress:
-                  <input class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                     type="email" name="email" id="modifyEmail" placeholder="modify your email">
-                  </label>
-               </div>
-               <div>
-                  <label class="text-green-800 font-light text-xl">Change your password:
-                  <input class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                     type="password" name="password" id="modifyPassword" placeholder="modify your password">
-                  </label>
-               </div>
-               <div>
-                  <label class="text-green-800 font-light text-xl">Confirm your password:
-                  <input class="ml-5 text-lg border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
-                     type="password" name="" id="modifyPasswordConfirm" placeholder="confirm your password">
-                  </label>
-               </div>
-               <div class="self-center pb-4">
-                  <button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-                     >submit</button>
-                  <button class="text-white px-2 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
-                     id="cancelForm">cancel</button>
-               </div>
-            </form>
-         </div>
+    </div>
+    {{>header this}}
+    <div class="flex flex-row m-12 space-x-8">
+      <!--Page body, page is divided into 3 parts, each expanding vertically-->
+      <div class="flex flex-col h-full space-y-4 p-4 bg-green-50 shadow-inner rounded-lg" id="userDiv">
+        <!--Profile avatar, info, and edit button-->
+        <div>
+          <!--Profile name-->
+          <h1 class="font-extralight text-3xl text-green-900 text-center" id="userName">User Name</h1>
+        </div>
+        <div>
+          <!--Profile Image-->
+          <img class="rounded-lg" src="" id="userPhoto2" />
+        </div>
+        <div class="font-light text-xl text-green-900">
+          <!--User info, edit button-->
+          <p id="userEmail"></p>
+          <p class="hover:text-green-500 text-green-600 font-normal"><a href="" id="completedProblems"></a></p>
+          <p class="hover:text-green-500"><a href="" id="Ranking"></a></p>
+          <button class="{{#unless isSelf}} hidden {{/unless}} text-lg hover:text-green-500 text-green-600 font-normal" id="editUser">Edit user<img class="inline" width="15" src="/img/edit.png" /></button>
+        </div>
       </div>
-      {{>header this}}
-      <div class="flex flex-row m-12 space-x-8">
-         <!--Page body, page is divided into 3 parts, each expanding vertically-->
-         <div class="flex flex-col space-y-4 p-4 bg-green-50 shadow-inner rounded-lg" id="userDiv">
-            <!--Profile avatar, info, and edit button-->
-            <div>
-               <!--Profile name-->
-               <h1 class="font-extralight text-3xl text-green-900 text-center" id="userName">User Name</h1>
-            </div>
-            <div>
-               <!--Profile Image-->
-               <img class="rounded-lg" src="" id="userPhoto2">
-            </div>
-            <div class="font-light text-xl text-green-900">
-               <!--User info, edit button-->
-               <p id="userEmail"></p>
-               <p class="hover:text-green-500"><a href="/users/me/solutions" id="completedProblems"></a></p>
-               <p class="hover:text-green-500"><a href="" id="Ranking"></a></p>
-               <button class="{{#unless isSelf}} hidden {{/unless}} font-light text-lg text-green-900 hover:text-green-500" id="editUser">Edit user<img class="inline" width="15" src="/img/edit.png"></button>
-            </div>
-         </div>
-         <div class="flex flex-col flex-grow space-y-4 p-4 bg-green-50 shadow-inner rounded-lg" id="solutionFeed">
-            <!--Newest solutions feed-->
-            <div class="font-extralight text-3xl text-green-900 text-center">
-               <p>Solutiile tale</p>
-            </div>
-         </div>
-         <div>
-            <!--Students and solutions divs-->
-            <div class="hidden">
-               <!--Student list-->
-            </div>
-            <div class="hidden">
-               <!--Solution list-->
-            </div>
-         </div>
+      <div class="flex flex-col flex-grow space-y-4 p-4 bg-green-50 shadow-inner rounded-lg" id="solutionFeed">
+        <!--Newest solutions feed-->
+        <div class="font-extralight text-3xl text-green-900 text-center">
+          <h1 id="feedHeading"></h1>
+        </div>
       </div>
-      {{>footer}}
-      <script src="/js/profile.js"></script>
-   </body>
+      <div>
+        <!--Students and solutions divs-->
+        <div class="hidden">
+          <!--Student list-->
+        </div>
+        <div class="hidden">
+          <!--Solution list-->
+        </div>
+      </div>
+    </div>
+    {{>footer}}
+    <script src="/js/profile.js"></script>
+  </body>
+</html>
