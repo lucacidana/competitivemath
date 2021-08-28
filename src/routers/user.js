@@ -118,7 +118,12 @@ router.post('/users/me', [upload.fields([]), auth], async (req, res) => {
   }
 
   try {
-    updates.forEach((update) => (req.user[update] = req.body[update]))
+    updates.forEach((update) => {
+      if (req.body[update]) {
+        req.user[update] = req.body[update]
+      }
+    })
+
     await req.user.save()
     res.clearCookie('Authorization')
     res.redirect('/users/me')
