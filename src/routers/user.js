@@ -127,7 +127,7 @@ router.post('/users/me', [upload.fields([]), auth], async (req, res) => {
     res.clearCookie('Authorization')
     res.redirect('/users/me')
   } catch (e) {
-    res.status(400).send(e)
+    res.render('profile', { error: 'Email-ul nu este disponibil!' })
   }
 })
 

@@ -9,10 +9,10 @@
     <link rel="icon" href="/img/icon.png" />
   </head>
   <body class="mb-5">
-    <div class="hidden fixed top-0 left-0 w-full h-full bg-gray-100 bg-opacity-75" id="modalBg">
+    <div class="{{#unless error}} hidden {{/unless}} fixed top-0 left-0 w-full h-full bg-gray-100 bg-opacity-75" id="modalBg">
       <!--Modal bg -->
     </div>
-    <div class="hidden flex flex-col justify-center items-center absolute inset-1/4" id="modalForm">
+    <div class="{{#unless error}} hidden {{/unless}} flex flex-col justify-center items-center absolute inset-1/4" id="modalForm">
       <!--Modal form-->
       <div class="object-contain bg-green-50 shadow rounded-lg space-y-4 p-4">
         <div>
@@ -68,7 +68,7 @@
           <div class="self-center pb-4">
             <button class="text-white px-2 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="submitForm">submit</button>
             <button class="text-white px-2 rounded bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50" id="cancelForm">cancel</button>
-            <p class="text-red-600 inline" id="passwordError"></p>
+            <p class="text-red-600 inline" id="passwordError">{{error}}</p>
           </div>
         </form>
       </div>

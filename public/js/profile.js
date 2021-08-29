@@ -205,6 +205,13 @@ document.querySelector('#submitForm').addEventListener('click', async (e) => {
   ) {
     e.preventDefault()
     document.querySelector('#passwordError').textContent = 'Parolele nu coincid'
+  } else if (
+    !document.querySelector('#modifyEmail').value &&
+    !document.querySelector('#modifyPasswordConfirm').value &&
+    !document.querySelector('#modifyPassword').value
+  ) {
+    e.preventDefault()
+    document.querySelector('#passwordError').textContent = 'Introduceti datele'
   }
 })
 
