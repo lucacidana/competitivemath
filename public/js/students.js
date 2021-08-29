@@ -110,7 +110,7 @@ if (window.location.href.includes('?name=')) {
           }
           i = ++i
         })
-        studentHeading.textContent = 'Student list'
+        studentHeading.textContent = 'Lista studenti'
 
         if (i === 37 && skipValue < 36) {
           navigateRight.style.display = 'block'

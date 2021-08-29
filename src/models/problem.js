@@ -23,11 +23,21 @@ const problemSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      validate(value) {
+        if (!['Dificil', 'Mediu', 'Usor'].includes(value)) {
+          throw new Error('Introduceti o dificultate valida')
+        }
+      },
     },
     category: {
       type: String,
       required: true,
       trim: true,
+      validate(value) {
+        if (!['Algebra', 'Analiza', 'Geometrie'].includes(value)) {
+          throw new Error('Introduceti o categorie valida')
+        }
+      },
     },
   },
   {

@@ -144,10 +144,6 @@ userSchema.methods.generateAuthToken = async function () {
     process.env.JWT_SECRET,
     { expiresIn: '60m' }
   )
-
-  // user.tokens = user.tokens.concat({ token })
-  // await user.save()
-
   return token
 }
 

@@ -42,7 +42,7 @@ router.post('/users/login', upload.fields([]), async (req, res) => {
     const token = await user.generateAuthToken()
 
     res.cookie('Authorization', token, { maxAge: 3600000 })
-    res.redirect('/users/me') //TEST
+    res.redirect('/users/me')
   } catch (e) {
     res.render('login', {
       error: 'Email sau parola invalida!',
