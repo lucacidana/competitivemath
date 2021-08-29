@@ -137,7 +137,7 @@ router.post('/recover', upload.fields([]), async (req, res) => {
     try {
       user.password = req.body.password
       await user.save()
-      res.send({ message: 'Successfully changed password' })
+      res.send({ message: 'Parola schimbata cu success' })
     } catch (error) {
       res.status(500).send()
     }

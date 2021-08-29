@@ -40,9 +40,11 @@ document
       })
         .then((response) => {
           if (response.status === 400) {
-            throw new Error('Email invalid')
+            document.querySelector('#recoveryError').textContent =
+              'Email invalid'
           } else if (response.status === 304) {
-            throw new Error('Parola noua trebuie sa fie diferita de cea veche')
+            document.querySelector('#recoveryError').textContent =
+              'Parola noua trebuie sa fie diferita de cea veche'
           } else {
             response.json().then((data) => {
               document
