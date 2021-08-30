@@ -141,10 +141,36 @@ if (id.includes('/')) {
             .classList.add('bg-blue-400')
         } else if (problemData.category === 'Analiza') {
           document.querySelector('#problemCategory').classList.add('bg-red-400')
-        } else {
+        } else if (problemData.category === 'Geometrie') {
           document
             .querySelector('#problemCategory')
             .classList.add('bg-pink-400')
+        } else if (problemData.category === 'Aritmetica') {
+          document.querySelector('#problemCategory').classList.add('bg-red-600')
+        } else if (problemData.category === 'Grafuri si Combinatorica') {
+          document
+            .querySelector('#problemCategory')
+            .classList.add('bg-yellow-400')
+        } else if (problemData.category === 'Ecuatii Diferentiale') {
+          document
+            .querySelector('#problemCategory')
+            .classList.add('bg-indigo-600')
+        } else if (problemData.category === 'Statistica Matematica') {
+          document
+            .querySelector('#problemCategory')
+            .classList.add('bg-purple-400')
+        } else if (problemData.category === 'Logica Matematica') {
+          document
+            .querySelector('#problemCategory')
+            .classList.add('bg-pink-600')
+        } else if (problemData.category === 'Teoria Numerelor') {
+          document
+            .querySelector('#problemCategory')
+            .classList.add('bg-yellow-600')
+        } else {
+          document
+            .querySelector('#problemCategory')
+            .classList.add('bg-gray-400')
         }
 
         if (problemData.difficulty === 'Usor') {
@@ -330,7 +356,7 @@ document
           'Solutie adaugata cu succes!'
         setTimeout(() => {
           window.location.href = '/problems/' + id
-        }, 3000)
+        }, 2000)
       }
     })
   })

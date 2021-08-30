@@ -40,12 +40,35 @@ fetch(`/users/${id}/solutions/data` + window.location.search).then(
           document.querySelector(`#short${i}`).textContent = solution.solution
             ? solution.solution.slice(0, 100)
             : ''
+
           if (solution.category === 'Algebra') {
             document.querySelector(`#category${i}`).classList.add('bg-blue-400')
           } else if (solution.category === 'Analiza') {
             document.querySelector(`#category${i}`).classList.add('bg-red-400')
-          } else {
+          } else if (solution.category === 'Geometrie') {
             document.querySelector(`#category${i}`).classList.add('bg-pink-400')
+          } else if (solution.category === 'Aritmetica') {
+            document.querySelector(`#category${i}`).classList.add('bg-red-600')
+          } else if (solution.category === 'Grafuri si Combinatorica') {
+            document
+              .querySelector(`#category${i}`)
+              .classList.add('bg-yellow-400')
+          } else if (solution.category === 'Ecuatii Diferentiale') {
+            document
+              .querySelector(`#category${i}`)
+              .classList.add('bg-indigo-600')
+          } else if (solution.category === 'Statistica Matematica') {
+            document
+              .querySelector(`#category${i}`)
+              .classList.add('bg-purple-400')
+          } else if (solution.category === 'Logica Matematica') {
+            document.querySelector(`#category${i}`).classList.add('bg-pink-600')
+          } else if (solution.category === 'Teoria Numerelor') {
+            document
+              .querySelector(`#category${i}`)
+              .classList.add('bg-yellow-600')
+          } else {
+            document.querySelector(`#category${i}`).classList.add('bg-gray-400')
           }
 
           if (solution.difficulty === 'Usor') {
@@ -101,9 +124,7 @@ searchButton.addEventListener('click', async (e) => {
   e.preventDefault()
   const data = {
     search: searchText.value ? searchText.value : '', // Radio value
-    category: document.querySelector('input[name="category"]:checked')
-      ? document.querySelector('input[name="category"]:checked').value
-      : '',
+    category: document.querySelector('#categorySelect').value,
     difficulty: document.querySelector('input[name="difficulty"]:checked')
       ? document.querySelector('input[name="difficulty"]:checked').value
       : '',
@@ -130,3 +151,42 @@ navigateLeft.addEventListener('click', async (e) => {
   urlParams.set('skip', (parseInt(urlParams.get('skip'), 10) - 10).toString())
   window.location.href = `/users/${id}/solutions?` + urlParams.toString()
 })
+
+// Begin search label highlight logic
+document
+  .querySelector('#searchLabelUsor')
+  .addEventListener('click', async (e) => {
+    document.querySelector('#searchLabelUsor').classList.add('text-green-500')
+    document
+      .querySelector('#searchLabelMediu')
+      .classList.remove('text-green-500')
+    document
+      .querySelector('#searchLabelDificil')
+      .classList.remove('text-green-500')
+  })
+
+document
+  .querySelector('#searchLabelMediu')
+  .addEventListener('click', async (e) => {
+    document
+      .querySelector('#searchLabelUsor')
+      .classList.remove('text-green-500')
+    document.querySelector('#searchLabelMediu').classList.add('text-green-500')
+    document
+      .querySelector('#searchLabelDificil')
+      .classList.remove('text-green-500')
+  })
+
+document
+  .querySelector('#searchLabelDificil')
+  .addEventListener('click', async (e) => {
+    document
+      .querySelector('#searchLabelUsor')
+      .classList.remove('text-green-500')
+    document
+      .querySelector('#searchLabelMediu')
+      .classList.remove('text-green-500')
+    document
+      .querySelector('#searchLabelDificil')
+      .classList.add('text-green-500')
+  })

@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My solutions</title>
+    <title>Solutiile mele</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="icon" href="/img/icon.png" />
   </head>
   {{>header this}}
-  <body class="mt-12 ml-8 mb-8 space-y-4">
+  <body class="mt-12 ml-16 mb-8 space-y-4">
     <div class="flex flex-row">
       <!--Encompassing div-->
       <div class="flex flex-col space-y-2 bg-green-50 p-2 shadow-inner rounded-lg">
@@ -18,19 +18,30 @@
           <h1>Cautare solutii</h1>
         </div>
         <div class="flex">
-          <input type="text" id="searchText" placeholder="Cauta solutii" />
+          <input class="border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+          type="text" id="searchText" placeholder="Cautare dupa titlul"/>
         </div>
         <div class="flex">
-          <span>
-            <h2 class="inline text-green-800 font-light text-lg">Categorie:</h2>
-            <label class="font-light hover:text-green-500" id="searchLabelAlgebra"><input class="hidden" type="radio" name="category" value="Algebra" required /> Algebra</label>
-            <label class="font-light hover:text-green-500" id="searchLabelAnaliza"><input class="hidden" type="radio" name="category" value="Analiza" required /> Analiza</label>
-            <label class="font-light hover:text-green-500" id="searchLabelGeometrie"><input class="hidden" type="radio" name="category" value="Geometrie" required /> Geometrie</label>
-          </span>
+          <span class="bg-white border border-transparent rounded-lg px-1 text-green-700">
+            <h2 class="inline">Categorie:</h2>
+              <select class="focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 rounded px-1 text-green-700" name="category" id="categorySelect">
+                <option disabled selected value class="hidden"></option>
+                <option value="Algebra">Algebra</option>
+                <option value="Analiza">Analiza</option>
+                <option value="Geometrie">Geometrie</option>
+                <option value="Aritmetica">Aritmetica</option>
+                <option value="Grafuri si Combinatorica">Grafuri si Combinatorica</option>
+                <option value="Ecuatii Diferentiale">Ecuatii Diferentiale</option>
+                <option value="Statistica Matematica">Statistica Matematica</option>
+                <option value="Logica Matematica">Logica Matematica</option>
+                <option value="Teoria Numerelor">Teoria Numerelor</option>
+                <option value="Trigonometrie">Trigonometrie</option>
+              </select>
+            </span>
         </div>
         <div class="flex">
-          <span>
-            <h2 class="inline text-green-800 font-light text-lg">Dificultate:</h2>
+          <span class="bg-white border border-transparent rounded-lg px-1 text-green-700">
+            <h2 class="inline">Dificultate:</h2>
             <label class="font-light hover:text-green-500" id="searchLabelUsor"><input class="hidden" type="radio" name="difficulty" value="Usor" required /> Usor</label>
             <label class="font-light hover:text-green-500" id="searchLabelMediu"><input class="hidden" type="radio" name="difficulty" value="Mediu" required /> Mediu</label>
             <label class="font-light hover:text-green-500" id="searchLabelDificil"><input class="hidden" type="radio" name="difficulty" value="Dificil" required /> Dificil</label>

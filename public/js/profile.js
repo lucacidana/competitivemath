@@ -53,6 +53,7 @@ fetch(fetchURL)
                 document.querySelector(`#grade${i}`).style.display = 'inline'
               }
             }
+
             if (solution.category === 'Algebra') {
               document
                 .querySelector(`#category${i}`)
@@ -61,10 +62,38 @@ fetch(fetchURL)
               document
                 .querySelector(`#category${i}`)
                 .classList.add('bg-red-400')
-            } else {
+            } else if (solution.category === 'Geometrie') {
               document
                 .querySelector(`#category${i}`)
                 .classList.add('bg-pink-400')
+            } else if (solution.category === 'Aritmetica') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-red-600')
+            } else if (solution.category === 'Grafuri si Combinatorica') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-yellow-400')
+            } else if (solution.category === 'Ecuatii Diferentiale') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-indigo-600')
+            } else if (solution.category === 'Statistica Matematica') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-purple-400')
+            } else if (solution.category === 'Logica Matematica') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-pink-600')
+            } else if (solution.category === 'Teoria Numerelor') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-yellow-600')
+            } else {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-gray-400')
             }
 
             if (solution.difficulty === 'Usor') {
@@ -109,7 +138,6 @@ fetch(fetchURL)
 	</span>
 	`
             document.getElementById('solutionFeed').appendChild(content)
-            console.log(problem)
             document
               .querySelector(`#link${i}`)
               .setAttribute('href', `/problems/${problem._id}`)
@@ -134,10 +162,38 @@ fetch(fetchURL)
               document
                 .querySelector(`#category${i}`)
                 .classList.add('bg-red-400')
-            } else {
+            } else if (problem.category === 'Geometrie') {
               document
                 .querySelector(`#category${i}`)
                 .classList.add('bg-pink-400')
+            } else if (problem.category === 'Aritmetica') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-red-600')
+            } else if (problem.category === 'Grafuri si Combinatorica') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-yellow-400')
+            } else if (problem.category === 'Ecuatii Diferentiale') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-indigo-600')
+            } else if (problem.category === 'Statistica Matematica') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-purple-400')
+            } else if (problem.category === 'Logica Matematica') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-pink-600')
+            } else if (problem.category === 'Teoria Numerelor') {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-yellow-600')
+            } else {
+              document
+                .querySelector(`#category${i}`)
+                .classList.add('bg-gray-400')
             }
 
             if (problem.difficulty === 'Usor') {

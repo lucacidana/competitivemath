@@ -20,7 +20,6 @@ if (window.location.href.includes('?')) {
     response
       .json()
       .then((data) => {
-        console.log(data)
         problemDiv.style.display = 'block'
         problemHeading.textContent = 'Problems'
         let i = 1
@@ -34,15 +33,38 @@ if (window.location.href.includes('?')) {
             .querySelector(`#author${i}`)
             .setAttribute('href', `/users/${value.authorId}`)
           document.querySelector(`#author${i}`).textContent = value.authorName
-
+          // Begin label colouring
           document.querySelector(`#category${i}`).textContent = value.category
           if (value.category === 'Algebra') {
             document.querySelector(`#category${i}`).classList.add('bg-blue-400')
           } else if (value.category === 'Analiza') {
             document.querySelector(`#category${i}`).classList.add('bg-red-400')
-          } else {
+          } else if (value.category === 'Geometrie') {
             document.querySelector(`#category${i}`).classList.add('bg-pink-400')
+          } else if (value.category === 'Aritmetica') {
+            document.querySelector(`#category${i}`).classList.add('bg-red-600')
+          } else if (value.category === 'Grafuri si Combinatorica') {
+            document
+              .querySelector(`#category${i}`)
+              .classList.add('bg-yellow-400')
+          } else if (value.category === 'Ecuatii Diferentiale') {
+            document
+              .querySelector(`#category${i}`)
+              .classList.add('bg-indigo-600')
+          } else if (value.category === 'Statistica Matematica') {
+            document
+              .querySelector(`#category${i}`)
+              .classList.add('bg-purple-400')
+          } else if (value.category === 'Logica Matematica') {
+            document.querySelector(`#category${i}`).classList.add('bg-pink-600')
+          } else if (value.category === 'Teoria Numerelor') {
+            document
+              .querySelector(`#category${i}`)
+              .classList.add('bg-yellow-600')
+          } else {
+            document.querySelector(`#category${i}`).classList.add('bg-gray-400')
           }
+          // End color labeling
 
           document.querySelector(`#difficulty${i}`).textContent =
             value.difficulty
@@ -81,7 +103,12 @@ if (window.location.href.includes('?')) {
       })
       .catch((error) => {
         problemDiv.style.display = 'block'
-        problemHeading.textContent = 'Problemele nu au fost gasite!'
+        let urlParams = new URLSearchParams(window.location.search)
+        let skipValue = urlParams.get('skip')
+        if (skipValue >= 10) {
+          navigateLeft.style.display = 'block'
+        }
+        problemHeading.textContent = 'Nu au fost gasite probleme!'
       })
   })
 }
@@ -105,7 +132,7 @@ navigateRight.addEventListener('click', async (e) => {
   let urlParams = new URLSearchParams(window.location.search)
   let skipValue = parseInt(urlParams.get('skip'), 10)
 
-  if (isNaN(skipValue)) {
+  if (isNaN(skipValue) || skipValue < 0) {
     urlParams.set('skip', '10')
   } else {
     urlParams.set('skip', (skipValue + 10).toString())
@@ -216,47 +243,6 @@ document
       .classList.add('text-green-500')
   })
 
-document
-  .querySelector('#searchLabelAnaliza')
-  .addEventListener('click', async (e) => {
-    document
-      .querySelector('#searchLabelAnaliza')
-      .classList.add('text-green-500')
-    document
-      .querySelector('#searchLabelAlgebra')
-      .classList.remove('text-green-500')
-    document
-      .querySelector('#searchLabelGeometrie')
-      .classList.remove('text-green-500')
-  })
-
-document
-  .querySelector('#searchLabelAlgebra')
-  .addEventListener('click', async (e) => {
-    document
-      .querySelector('#searchLabelAnaliza')
-      .classList.remove('text-green-500')
-    document
-      .querySelector('#searchLabelAlgebra')
-      .classList.add('text-green-500')
-    document
-      .querySelector('#searchLabelGeometrie')
-      .classList.remove('text-green-500')
-  })
-
-document
-  .querySelector('#searchLabelGeometrie')
-  .addEventListener('click', async (e) => {
-    document
-      .querySelector('#searchLabelAnaliza')
-      .classList.remove('text-green-500')
-    document
-      .querySelector('#searchLabelAlgebra')
-      .classList.remove('text-green-500')
-    document
-      .querySelector('#searchLabelGeometrie')
-      .classList.add('text-green-500')
-  })
 //End search label highlights
 //Begin add label highlights
 
@@ -282,40 +268,4 @@ document
     document.querySelector('#addLabelUsor').classList.remove('text-green-500')
     document.querySelector('#addLabelMediu').classList.remove('text-green-500')
     document.querySelector('#addLabelDificil').classList.add('text-green-500')
-  })
-
-document
-  .querySelector('#addLabelAnaliza')
-  .addEventListener('click', async (e) => {
-    document.querySelector('#addLabelAnaliza').classList.add('text-green-500')
-    document
-      .querySelector('#addLabelAlgebra')
-      .classList.remove('text-green-500')
-    document
-      .querySelector('#addLabelGeometrie')
-      .classList.remove('text-green-500')
-  })
-
-document
-  .querySelector('#addLabelAlgebra')
-  .addEventListener('click', async (e) => {
-    document
-      .querySelector('#addLabelAnaliza')
-      .classList.remove('text-green-500')
-    document.querySelector('#addLabelAlgebra').classList.add('text-green-500')
-    document
-      .querySelector('#addLabelGeometrie')
-      .classList.remove('text-green-500')
-  })
-
-document
-  .querySelector('#addLabelGeometrie')
-  .addEventListener('click', async (e) => {
-    document
-      .querySelector('#addLabelAnaliza')
-      .classList.remove('text-green-500')
-    document
-      .querySelector('#addLabelAlgebra')
-      .classList.remove('text-green-500')
-    document.querySelector('#addLabelGeometrie').classList.add('text-green-500')
   })

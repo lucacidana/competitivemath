@@ -24,6 +24,12 @@ if (window.location.pathname.includes('/users/me/solutions')) {
   document.querySelector('#solutionsHeading').classList.add('text-green-900')
 }
 
+if (window.location.pathname.includes('/users/leaderboard')) {
+  document.querySelector('#leaderboardHeading').classList.add('text-green-50')
+} else {
+  document.querySelector('#leaderboardHeading').classList.add('text-green-900')
+}
+
 document.querySelector('#logoutButton').addEventListener('click', async (e) => {
   fetch('/users/logout', {
     method: 'POST',

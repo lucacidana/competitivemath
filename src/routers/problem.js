@@ -12,7 +12,18 @@ const upload = multer({
   },
 })
 const resize = require('../middleware/resize')
-const Categories = ['Algebra', 'Analiza', 'Geometrie']
+const Categories = [
+  'Algebra',
+  'Analiza',
+  'Geometrie',
+  'Aritmetica',
+  'Grafuri si Combinatorica',
+  'Ecuatii Diferentiale',
+  'Statistica Matematica',
+  'Logica Matematica',
+  'Teoria Numerelor',
+  'Trigonometrie',
+]
 const Difficulties = ['Usor', 'Mediu', 'Dificil']
 // Begin POST methods
 
@@ -151,8 +162,10 @@ router.get('/problems', async (req, res) => {
 router.get('/problemList', async (req, res) => {
   // ProblemList is used to fetch a problem list
   try {
-    let Search = req.query.search ? req.query.search : ''
-    Search = Search.replace('+', ' ')
+    const Search = req.query.search ? req.query.search.replace('+', ' ') : ''
+    const Author = req.query.authorName
+      ? req.query.authorName.replace('+', ' ')
+      : ''
 
     if ('myProblems' in req.query) {
       // Fetch user to get userID and compare that to authorId id
@@ -170,6 +183,7 @@ router.get('/problemList', async (req, res) => {
     const problems = await Problem.find(
       {
         title: { $regex: Search, $options: 'i' }, // Search by title
+        authorName: { $regex: Author, $options: 'i' },
         authorId: req.query.myProblems,
         category: req.query.category ? req.query.category : { $in: Categories },
         difficulty: req.query.difficulty
@@ -178,7 +192,8 @@ router.get('/problemList', async (req, res) => {
       },
       'title difficulty category description authorName authorId',
       {
-        skip: req.query.skip ? parseInt(req.query.skip) : 0,
+        skip:
+          req.query.skip && req.query.skip >= 0 ? parseInt(req.query.skip) : 0,
         limit: 10,
       }
     ).lean()
@@ -310,6 +325,7 @@ router.post('/problems/:id/:studId', auth, async (req, res) => {
                 professorId: req.user._id,
               },
             ]
+            user.ranking = user.ranking + req.body.grade
           }
         })
         if (user.isModified()) {

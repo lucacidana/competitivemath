@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranking</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="icon" href="/img/icon.png" />
+  </head>
+  <body class="mb-12">
+    {{>header this}}
+    <div class="flex flex-row mt-12 ml-16 space-x-12">
+      <div class="flex flex-col">
+        <div class="flex flex-col p-2 bg-green-50 rounded-lg shadow-inner mb-8">
+          <div class="flex mb-4">
+            <h1 class="font-extralight text-3xl text-green-900">Cauta utilizatori</h1>
+          </div>
+          <div class="flex mb-1">
+            <input
+              class="border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 focus:placeholder-opacity-25 placeholder-green-500 placeholder-opacity-75"
+              type="email"
+              id="searchEmail"
+              placeholder="Cautare dupa email"
+            />
+          </div>
+          <div class="flex justify-between">
+            {{#if Professor}}
+            <div class="flex">
+              <button class="px-1 focus:outline-none bg-white hover:bg-green-100 rounded active:bg-green-200 text-green-600" id="myStudentsButton">Studentii mei</button>
+              <input class="hidden" type="checkbox" value="" name="myStudents" id="myStudentsCheck" />
+            </div>
+            {{/if}}
+            <button class="text-white px-1 rounded bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="searchButton">Cauta</button>
+          </div>
+          <p class="text-red-400" id="errorMessage"></p>
+        </div>
+      </div>
+      <div class="flex flex-col space-y-4" id="contentDiv"></div>
+    </div>
+    <div class="flex flex-row space-x-2 place-content-center">
+      <div class="flex">
+        <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" id="navigateLeft"><img src="/img/navigateLeft.png" alt="" width="30" /></button>
+      </div>
+      <div class="flex">
+        <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" id="navigateRight"><img src="/img/navigateRight.png" alt="" width="30" /></button>
+      </div>
+    </div>
+    <script src="/js/leaderboard.js"></script>
+  </body>
+  {{>footer}}
+</html>

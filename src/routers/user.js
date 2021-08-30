@@ -50,7 +50,7 @@ router.post('/users/login', upload.fields([]), async (req, res) => {
   }
 })
 
-router.post('/users/logout', auth, async (req, res) => {
+router.post('/users/logout', async (req, res) => {
   // Logout
   try {
     res.clearCookie('Authorization')
@@ -184,6 +184,7 @@ router.post(
           if (solution.problemId == req.params.id) {
             solution.solution = req.body.solution
             if (solution.grading[0]) {
+              req.user.ranking = req.user.ranking - solution.grading[0].grade
               solution.grading[0].grade = null
             }
             solution.solutionFiles = req.body.images
@@ -236,6 +237,54 @@ router.get('/users/create', async (req, res) => {
   res.render('signup')
 })
 
+router.get('/users/leaderboard', auth, async (req, res) => {
+  res.render('leaderboard', {
+    Professor: req.user.isProfessor,
+  })
+})
+
+router.get('/users/leaderboard/data', auth, async (req, res) => {
+  console.log(req.query)
+  if ('myStudents' in req.query) {
+    if (req.user.isProfessor) {
+      const ids = []
+      req.user.students.forEach((student) => ids.push(student.studentId))
+      const users = await User.find(
+        {
+          _id: { $in: ids },
+          email: req.query.email ? req.query.email : new RegExp(/.*/),
+        },
+        'name ranking',
+        {
+          skip:
+            req.query.skip && req.query.skip >= 0
+              ? parseInt(req.query.skip)
+              : 0,
+          limit: 10,
+        }
+      )
+        .sort({ ranking: 'desc' })
+        .lean()
+      res.send(users)
+    }
+  } else {
+    const users = await User.find(
+      {
+        email: req.query.email ? req.query.email : new RegExp(/.*/),
+      },
+      'name ranking',
+      {
+        skip:
+          req.query.skip && req.query.skip >= 0 ? parseInt(req.query.skip) : 0,
+        limit: 10,
+      }
+    )
+      .sort({ ranking: 'desc' })
+      .lean()
+    res.send(users)
+  }
+})
+
 router.get('/users/:id', auth, async (req, res) => {
   // Display profile page, check if
   res.render('profile', {
@@ -247,8 +296,9 @@ router.get('/users/:id', auth, async (req, res) => {
 
 router.get('/users/:id/data', auth, async (req, res) => {
   if (req.params.id === 'me' || req.params.id == req.user._id) {
+    // Own profile
     try {
-      let completedProblems = req.user.solvedProblems.length
+      const completedProblems = req.user.solvedProblems.length
       if (!req.user.isProfessor) {
         // Students will be greeted with their last 10 most recent solutions
         req.user.solvedProblems.sort((a, b) => b.updatedAt - a.updatedAt)
@@ -271,42 +321,72 @@ router.get('/users/:id/data', auth, async (req, res) => {
     } catch (e) {
       res.status(404).send()
     }
-  }
-  try {
-    // Public profile
-    const user = await User.findById(req.params.id).lean()
+  } else {
+    try {
+      // Public profile
+      const user = await User.findById(req.params.id).lean()
 
-    if (!user) {
-      throw new Error()
-    }
+      if (!user) {
+        throw new Error()
+      }
+      const completedProblems = user.solvedProblems.length
+      if (user.isProfessor) {
+        // If accessing a professor's public profile, show his last uploaded problems
+        const problems = await Problem.find(
+          { authorId: user._id },
+          'title difficulty category description authorId authorName',
+          {
+            limit: 10,
+          }
+        )
+          .sort({ updatedAt: 'desc' })
+          .lean()
+        delete user.students
+        delete user.createdAt
+        delete user.updatedAt
+        delete user.__v
+        delete user.solvedProblems
+        delete user.password
+        res.send({
+          user,
+          problems,
+          completedProblems,
+        })
+      } else {
+        // Else if accessing a student's profile, show his last uploaded solutions
+        user.solvedProblems.sort((a, b) => b.updatedAt - a.updatedAt)
+        user.solvedProblems = user.solvedProblems.slice(0, 10)
 
-    let completedProblems = user.solvedProblems.length
-    user.solvedProblems.sort((a, b) => b.updatedAt - a.updatedAt)
-    user.solvedProblems = user.solvedProblems.slice(0, 10)
-
-    if (req.user.isProfessor) {
-      req.user.students.forEach((student) => {
-        if (student.studentId == req.params.id) {
-          user.updatedAt = null
-          user.createdAt = null
-          user.students = null
-          user.__v = null
+        if (req.user.isProfessor) {
+          req.user.students.forEach((student) => {
+            if (student.studentId == req.params.id) {
+              // If the user who view's the profile is the student's teacher, show the solutions grade
+              delete user.updatedAt
+              delete user.createdAt
+              delete user.students
+              delete user.__v
+              delete user.password
+              res.send({ user, problem: undefined, completedProblems })
+            }
+          })
+        } else {
+          // Else, hide them
+          delete user.updatedAt
+          delete user.createdAt
+          delete user.students
+          delete user.__v
+          delete user.password
+          user.solvedProblems.forEach((solution) => {
+            delete solution.solution
+            delete solution.solutionFiles
+            solution.grading = []
+          })
           res.send({ user, problem: undefined, completedProblems })
         }
-      })
+      }
+    } catch (e) {
+      res.status(404).send()
     }
-    user.updatedAt = null
-    user.createdAt = null
-    user.students = null
-    user.__v = null
-    user.solvedProblems.forEach((solution) => {
-      solution.solution = null
-      solution.solutionFiles = null
-      solution.grading = []
-    })
-    res.send({ user, problem: undefined, completedProblems })
-  } catch (e) {
-    res.status(404).send()
   }
 })
 
@@ -333,8 +413,8 @@ router.get('/users/:id/solutions/data', auth, async (req, res) => {
 
     user.solvedProblems = user.solvedProblems.slice(
       // Fetch the next 10
-      req.query.skip ? req.query.skip : 0,
-      req.query.skip ? parseInt(req.query.skip) + 10 : 10
+      req.query.skip && req.query.skip >= 0 ? req.query.skip : 0,
+      req.query.skip && req.query.skip >= 0 ? parseInt(req.query.skip) + 10 : 10
     )
     if (user.solvedProblems) {
       if (req.query.category) {
@@ -393,7 +473,10 @@ router.get('/users/me/studentList', auth, async (req, res) => {
           },
           'studentId name email',
           {
-            skip: req.query.skip ? parseInt(req.query.skip) : 0,
+            skip:
+              req.query.skip && req.query.skip >= 0
+                ? parseInt(req.query.skip)
+                : 0,
             limit: 36,
           }
         ).lean()
