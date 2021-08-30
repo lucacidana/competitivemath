@@ -34,10 +34,31 @@ const problemSchema = new mongoose.Schema(
       required: true,
       trim: true,
       validate(value) {
-        if (!['Algebra', 'Analiza', 'Geometrie'].includes(value)) {
+        if (
+          ![
+            'Algebra',
+            'Analiza',
+            'Geometrie',
+            'Aritmetica',
+            'Grafuri si Combinatorica',
+            'Ecuatii Diferentiale',
+            'Statistica Matematica',
+            'Logica Matematica',
+            'Teoria Numerelor',
+            'Trigonometrie',
+          ].includes(value)
+        ) {
           throw new Error('Introduceti o categorie valida')
         }
       },
+    },
+    authorId: {
+      type: String,
+      required: true,
+    },
+    authorName: {
+      type: String,
+      required: true,
     },
   },
   {

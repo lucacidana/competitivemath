@@ -259,7 +259,7 @@ router.get('/users/:id/data', auth, async (req, res) => {
         // Professors will be greeted with the last 10 most recent problems
         const problems = await Problem.find(
           {},
-          'title difficulty category description',
+          'title difficulty category description authorId authorName',
           {
             limit: 10,
           }

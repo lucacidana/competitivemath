@@ -102,16 +102,23 @@ fetch(fetchURL)
 	<span class="float-right space-x-1">
 		 <!--Example of float in div, inline items with span, spacing within child elems-->
 		 <p class="inline font-light truncate mr-6" id="short${i}"></p>
+     <span class="hover:bg-indigo-100 p-0.5 border bg-indigo-200 border-indigo-300 text-purple-900 rounded">
+        <a class="" href="" id="author${i}"></a></span>
 		 <span class="p-0.5 border border-transparent text-white font-light rounded" id="category${i}"></span>
 		 <span class="p-0.5 border border-transparent text-white font-light rounded" id="difficulty${i}"></span>
 	</span>
 	`
             document.getElementById('solutionFeed').appendChild(content)
-
+            console.log(problem)
             document
               .querySelector(`#link${i}`)
               .setAttribute('href', `/problems/${problem._id}`)
             document.querySelector(`#link${i}`).textContent = problem.title
+            document
+              .querySelector(`#author${i}`)
+              .setAttribute('href', `/users/${problem.authorId}`)
+            document.querySelector(`#author${i}`).textContent =
+              problem.authorName
             document.querySelector(`#category${i}`).textContent =
               problem.category
             document.querySelector(`#difficulty${i}`).textContent =

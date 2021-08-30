@@ -23,6 +23,8 @@ router.post('/problems', [upload.fields([]), auth], async (req, res) => {
     Categories.includes(req.body.category) &&
     Difficulties.includes(req.body.difficulty)
   ) {
+    req.body.authorId = req.user.id
+    req.body.authorName = req.user.name
     const problem = new Problem(req.body)
     try {
       await problem.save()
@@ -151,15 +153,30 @@ router.get('/problemList', async (req, res) => {
   try {
     let Search = req.query.search ? req.query.search : ''
     Search = Search.replace('+', ' ')
+
+    if ('myProblems' in req.query) {
+      // Fetch user to get userID and compare that to authorId id
+      let decoded = ''
+      const token = req.cookies['Authorization']
+      if (token !== undefined) {
+        decoded = jwt.verify(token, process.env.JWT_SECRET)
+      }
+      const user = await User.findOne({ password: decoded.password })
+      req.query.myProblems = user ? user._id : new RegExp(/.*/)
+    } else {
+      req.query.myProblems = new RegExp(/.*/)
+    }
+
     const problems = await Problem.find(
       {
         title: { $regex: Search, $options: 'i' }, // Search by title
+        authorId: req.query.myProblems,
         category: req.query.category ? req.query.category : { $in: Categories },
         difficulty: req.query.difficulty
           ? req.query.difficulty
           : { $in: Difficulties },
       },
-      'title difficulty category description',
+      'title difficulty category description authorName authorId',
       {
         skip: req.query.skip ? parseInt(req.query.skip) : 0,
         limit: 10,

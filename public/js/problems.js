@@ -3,6 +3,7 @@ const problemHeading = document.querySelector('#problem-heading')
 const problemDiv = document.querySelector('#problemDiv')
 const addProblemModal = document.querySelector('#addProblemModal')
 const addProblemButton = document.querySelector('#addProblemButton')
+const myProblemsButton = document.querySelector('#myProblemsButton')
 const closeAddProblemButton = document.querySelector('#closeAddProblem')
 const submitProblemForm = document.querySelector('#submitProblem')
 const navigateLeft = document.querySelector('#navigateLeft')
@@ -19,6 +20,7 @@ if (window.location.href.includes('?')) {
     response
       .json()
       .then((data) => {
+        console.log(data)
         problemDiv.style.display = 'block'
         problemHeading.textContent = 'Problems'
         let i = 1
@@ -27,6 +29,11 @@ if (window.location.href.includes('?')) {
             .querySelector(`#link${i}`)
             .setAttribute('href', `/problems/${value._id}`)
           document.querySelector(`#link${i}`).textContent = value.title
+
+          document
+            .querySelector(`#author${i}`)
+            .setAttribute('href', `/users/${value.authorId}`)
+          document.querySelector(`#author${i}`).textContent = value.authorName
 
           document.querySelector(`#category${i}`).textContent = value.category
           if (value.category === 'Algebra') {
@@ -126,6 +133,7 @@ if (addProblemButton) {
     addProblemForm.style.display = 'block'
   })
 }
+
 // Close the form
 closeAddProblemButton.addEventListener('click', async (e) => {
   e.preventDefault()
@@ -157,6 +165,19 @@ submitProblemForm.addEventListener('submit', async (e) => {
 })
 
 //Begin search label highlights
+if (myProblemsButton) {
+  myProblemsButton.addEventListener('click', async (e) => {
+    e.preventDefault()
+    if (!document.querySelector('#myProblemsCheck').checked) {
+      document.querySelector('#myProblemsCheck').checked = true
+      myProblemsButton.classList.replace('text-green-700', 'text-green-500')
+    } else {
+      document.querySelector('#myProblemsCheck').checked = false
+      myProblemsButton.classList.replace('text-green-500', 'text-green-700')
+    }
+  })
+}
+
 document
   .querySelector('#searchLabelUsor')
   .addEventListener('click', async (e) => {
