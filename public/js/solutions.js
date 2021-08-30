@@ -15,7 +15,7 @@ fetch(`/users/${id}/solutions/data` + window.location.search).then(
           content.id = `solution${i}`
           content.className = 'mt-6 p-2 bg-white rounded-lg shadow'
           content.innerHTML = `<div class="flex flex-col bg-white p-2">
-					<div class="inline-flex space-x-12">
+					<div class="inline-flex space-x-12 justify-between">
 						<a href="" class="flex font-light text-lg text-green-800 hover:text-green-500" id="link${i}">test</a>
 						<div class="flex space-x-1.5">
 							<div class="px-0.5 border border-transparent text-white font-light rounded" id="category${i}"></div>
