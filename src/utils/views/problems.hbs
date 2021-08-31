@@ -8,7 +8,7 @@
       <link rel="stylesheet" href="/css/styles.css" />
       <link rel="icon" href="/img/icon.png">
    </head>
-   <body class="mb-8">
+   <body class="mb-4 flex flex-row">
       {{>header this}}
       <div class="flex">
          <!--Search form-->
@@ -122,7 +122,7 @@
             </form>
          </div>
       </div>
-      <div class="flex flex-col bg-green-50 rounded-lg shadow-inner ml-16 mt-12 p-6 w-1/2 hidden" id="problemDiv">
+      <div class="flex flex-col bg-green-50 rounded-lg shadow-inner ml-16 mt-12 p-6 hidden" id="problemDiv">
          <!--Begin problem list div-->
          <div>
             <h1 class="font-extralight text-3xl text-green-900" id="problem-heading"></h1>
@@ -248,8 +248,7 @@
             </span>
             <p class="font-light truncate" id="short10"></p>
          </div>
-      </div>
-      <div class="flex flex-row justify-center items-center space-x-2 mt-8 pb-1">
+				<div class="flex flex-row justify-center space-x-2 mt-8 pb-1">
          <!--Navigation buttons-->
          <div class="">
             <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"  id="navigateLeft">
@@ -261,6 +260,7 @@
             <img src="/img/navigateRight.png" alt="" width="30">
             </button>
          </div>
+      </div>
       </div>
       <script src="/js/problems.js"></script>
    </body>

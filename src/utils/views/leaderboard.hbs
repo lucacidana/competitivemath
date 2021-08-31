@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ranking</title>
+    <title>Clasament</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="icon" href="/img/icon.png" />
   </head>
@@ -36,14 +36,16 @@
           <p class="text-red-400" id="errorMessage"></p>
         </div>
       </div>
-      <div class="flex flex-col space-y-4" id="contentDiv"></div>
-    </div>
-    <div class="flex flex-row space-x-2 place-content-center">
-      <div class="flex">
-        <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" id="navigateLeft"><img src="/img/navigateLeft.png" alt="" width="30" /></button>
-      </div>
-      <div class="flex">
-        <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" id="navigateRight"><img src="/img/navigateRight.png" alt="" width="30" /></button>
+      <div class="space-y-2">
+        <div class="flex flex-col space-y-4" id="contentDiv"></div>
+        <div class="flex flex-row space-x-2 place-content-center">
+          <div class="flex">
+            <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" id="navigateLeft"><img src="/img/navigateLeft.png" alt="" width="30" /></button>
+          </div>
+          <div class="flex">
+            <button class="hidden rounded bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" id="navigateRight"><img src="/img/navigateRight.png" alt="" width="30" /></button>
+          </div>
+        </div>
       </div>
     </div>
     <script src="/js/leaderboard.js"></script>

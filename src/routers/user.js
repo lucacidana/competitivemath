@@ -244,7 +244,6 @@ router.get('/users/leaderboard', auth, async (req, res) => {
 })
 
 router.get('/users/leaderboard/data', auth, async (req, res) => {
-  console.log(req.query)
   if ('myStudents' in req.query) {
     if (req.user.isProfessor) {
       const ids = []
